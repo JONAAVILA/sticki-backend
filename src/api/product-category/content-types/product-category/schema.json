@@ -33,26 +33,6 @@
       },
       "required": true
     },
-    "price": {
-      "type": "decimal",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": 0
-    },
-    "paused": {
-      "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": false
-    },
     "cover": {
       "type": "media",
       "pluginOptions": {
