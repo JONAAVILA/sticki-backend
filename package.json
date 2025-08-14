@@ -1,5 +1,5 @@
 {
-  "name": "store-backend",
+  "name": "baby-store-backend",
   "version": "0.1.0",
   "private": true,
   "description": "A Strapi application",
@@ -15,10 +15,10 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.18.1",
-    "@strapi/plugin-users-permissions": "5.18.1",
-    "@strapi/strapi": "5.18.1",
-    "better-sqlite3": "11.3.0",
+    "@strapi/plugin-cloud": "5.22.0",
+    "@strapi/plugin-users-permissions": "5.22.0",
+    "@strapi/strapi": "5.22.0",
+    "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
@@ -35,7 +35,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "3f878ba4-18f1-4913-8fc2-a181c59a686c",
-    "installId": "6321ff876aedbe04e8552349d4a53fc2bc1d4d1bdfcce6a02a1edc7790dd5200"
+    "uuid": "4662c6eb-1051-43e6-b781-6ea445f07efb",
+    "installId": "3e809281a609f85a4b8d2568cd36d67c5ab6fc457881100b183c08c09e473a15"
   }
 }
