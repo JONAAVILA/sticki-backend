@@ -1,10 +1,10 @@
 {
-  "kind": "singleType",
-  "collectionName": "stickers",
+  "kind": "collectionType",
+  "collectionName": "products",
   "info": {
-    "singularName": "sticker",
-    "pluralName": "stickers",
-    "displayName": "sticker"
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product"
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +22,7 @@
           "localized": true
         }
       },
+      "default": "item",
       "required": true
     },
     "description": {
@@ -40,7 +41,8 @@
           "localized": true
         }
       },
-      "required": true
+      "required": true,
+      "default": 0
     },
     "stock": {
       "type": "integer",
@@ -62,16 +64,6 @@
       "required": true,
       "default": 1
     },
-    "discount": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": 0
-    },
     "deliveryTime": {
       "type": "integer",
       "pluginOptions": {
@@ -82,39 +74,21 @@
       "required": true,
       "default": 24
     },
-    "coverImage": {
-      "type": "media",
+    "discount": {
+      "type": "integer",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "default": 0
     },
-    "images": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ]
-    },
-    "categories": {
+    "cart_items": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::category.category"
+      "target": "api::cart-item.cart-item",
+      "mappedBy": "product"
     }
   }
 }

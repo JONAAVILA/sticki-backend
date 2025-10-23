@@ -405,13 +405,6 @@ export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::cart-item.cart-item'
     >;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     price: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -420,6 +413,7 @@ export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<0>;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -530,12 +524,12 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiStickerSticker extends Struct.SingleTypeSchema {
-  collectionName: 'stickers';
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
   info: {
-    displayName: 'sticker';
-    pluralName: 'stickers';
-    singularName: 'sticker';
+    displayName: 'product';
+    pluralName: 'products';
+    singularName: 'product';
   };
   options: {
     draftAndPublish: true;
@@ -546,17 +540,10 @@ export interface ApiStickerSticker extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    categories: Schema.Attribute.Relation<
+    cart_items: Schema.Attribute.Relation<
       'oneToMany',
-      'api::category.category'
+      'api::cart-item.cart-item'
     >;
-    coverImage: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -583,17 +570,10 @@ export interface ApiStickerSticker extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<0>;
-    images: Schema.Attribute.Media<'images' | 'files' | 'videos', true> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::sticker.sticker'
+      'api::product.product'
     >;
     minOrder: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -609,14 +589,16 @@ export interface ApiStickerSticker extends Struct.SingleTypeSchema {
         i18n: {
           localized: true;
         };
-      }>;
+      }> &
+      Schema.Attribute.DefaultTo<'item'>;
     price: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }>;
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     stock: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -1144,7 +1126,7 @@ declare module '@strapi/strapi' {
       'api::cart-item.cart-item': ApiCartItemCartItem;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
-      'api::sticker.sticker': ApiStickerSticker;
+      'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

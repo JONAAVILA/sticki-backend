@@ -15,15 +15,6 @@
     }
   },
   "attributes": {
-    "name": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true
-    },
     "amount": {
       "type": "integer",
       "pluginOptions": {
@@ -43,6 +34,12 @@
       },
       "required": true,
       "default": 0
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "cart_items"
     }
   }
 }
