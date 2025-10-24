@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "products",
+  "collectionName": "stickers",
   "info": {
-    "singularName": "product",
-    "pluralName": "products",
-    "displayName": "product"
+    "singularName": "sticker",
+    "pluralName": "stickers",
+    "displayName": "sticker"
   },
   "options": {
     "draftAndPublish": true
@@ -22,7 +22,6 @@
           "localized": true
         }
       },
-      "default": "item",
       "required": true
     },
     "description": {
@@ -41,8 +40,7 @@
           "localized": true
         }
       },
-      "required": true,
-      "default": 0
+      "required": true
     },
     "stock": {
       "type": "integer",
@@ -64,16 +62,6 @@
       "required": true,
       "default": 1
     },
-    "deliveryTime": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": 24
-    },
     "discount": {
       "type": "integer",
       "pluginOptions": {
@@ -84,11 +72,54 @@
       "required": true,
       "default": 0
     },
+    "deliveryTime": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": 24
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
     "cart_items": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::cart-item.cart-item",
-      "mappedBy": "product"
+      "inversedBy": "stickers"
+    },
+    "cover": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "images": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
     }
   }
 }

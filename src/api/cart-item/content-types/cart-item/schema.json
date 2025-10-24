@@ -35,11 +35,11 @@
       "required": true,
       "default": 0
     },
-    "product": {
+    "stickers": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product.product",
-      "inversedBy": "cart_items"
+      "relation": "manyToMany",
+      "target": "api::sticker.sticker",
+      "mappedBy": "cart_items"
     }
   }
 }
