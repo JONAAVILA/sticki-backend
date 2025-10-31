@@ -87,12 +87,6 @@
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "cart_items": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::cart-item.cart-item",
-      "inversedBy": "stickers"
-    },
     "cover": {
       "type": "media",
       "pluginOptions": {

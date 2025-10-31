@@ -25,21 +25,10 @@
       "required": true,
       "default": 1
     },
-    "price": {
-      "type": "integer",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": 0
-    },
-    "stickers": {
+    "cartProduct": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::sticker.sticker",
-      "mappedBy": "cart_items"
+      "relation": "oneToOne",
+      "target": "api::sticker.sticker"
     }
   }
 }
