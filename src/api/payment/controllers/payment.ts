@@ -13,7 +13,7 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
             const { items } = ctx.request.body
             console.log("items",items)
 
-            if(items || !Array.isArray(items)){
+            if(!items || !Array.isArray(items)){
                 return ctx.badRequest('Faltan los items del pedido')
             }
 
@@ -29,12 +29,10 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
             }
             console.log("body",body)
 
-            const result = preference.create({body})
+            const result = await preference.create({body})
             console.log("result",result)
 
-            ctx.body = {
-                result
-            }
+            return ctx.send(result)
         } catch (error) {
             strapi.log.error('Error al crear preferencia de Mercado Pago:', error);
             ctx.internalServerError('Error al crear preferencia de pago');
