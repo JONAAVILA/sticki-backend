@@ -8,10 +8,8 @@ const preference = new Preference(client);
 
 export default factories.createCoreController('api::payment.payment',({strapi})=>({
     async create(ctx){
-        console.log("items")
         try {
             const { items } = ctx.request.body
-            console.log("items",items)
 
             if(!items || !Array.isArray(items)){
                 return ctx.badRequest('Faltan los items del pedido')
@@ -24,8 +22,7 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
                     quantity: item.quantity,
                     unit_price: item.unit_price,
                     currency_id: item.currency_id ?? 'ARS',
-                })),
-                auto_return: 'approved',
+                }))
             }
             console.log("body",body)
 
