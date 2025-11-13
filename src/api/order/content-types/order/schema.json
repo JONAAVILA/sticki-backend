@@ -49,6 +49,15 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::order-item.order-item"
+    },
+    "id_payment": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
     }
   }
 }
