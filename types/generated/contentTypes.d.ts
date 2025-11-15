@@ -373,46 +373,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
-  collectionName: 'cart_items';
-  info: {
-    displayName: 'cartItem';
-    pluralName: 'cart-items';
-    singularName: 'cart-item';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    amount: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<1>;
-    cartProduct: Schema.Attribute.Relation<'oneToOne', 'api::sticker.sticker'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::cart-item.cart-item'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiCartCart extends Struct.CollectionTypeSchema {
   collectionName: 'carts';
   info: {
@@ -429,16 +389,16 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    cart_items: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::cart-item.cart-item'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'>;
     publishedAt: Schema.Attribute.DateTime;
+    sticker_carts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sticker.sticker'
+    >;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -451,7 +411,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -516,60 +476,6 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
-  collectionName: 'order_items';
-  info: {
-    displayName: 'orderItem';
-    pluralName: 'order-items';
-    singularName: 'order-item';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    amount: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<1>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::order-item.order-item'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    sticker: Schema.Attribute.Relation<'oneToOne', 'api::sticker.sticker'>;
-    subTotal: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    unitPrice: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
@@ -598,10 +504,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
-    order_items: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::order-item.order-item'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     statusOrder: Schema.Attribute.Enumeration<
       ['pending', 'approved', 'dispatched', 'filled']
@@ -1217,7 +1119,7 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    cart: Schema.Attribute.Relation<'oneToOne', 'api::cart.cart'>;
+    carts: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1269,10 +1171,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::cart-item.cart-item': ApiCartItemCartItem;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
-      'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::payment.payment': ApiPaymentPayment;
       'api::sticker.sticker': ApiStickerSticker;

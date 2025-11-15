@@ -40,11 +40,6 @@
       },
       "required": true
     },
-    "order_items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order-item.order-item"
-    },
     "id_payment": {
       "type": "string",
       "pluginOptions": {
