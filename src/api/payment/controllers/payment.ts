@@ -22,7 +22,12 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
                     quantity: item.quantity,
                     unit_price: item.unit_price,
                     currency_id: item.currency_id ?? 'ARS',
-                }))
+                })),
+                back_urls: {
+                    success: "http://localhost:3000/pagos/success",
+                    failure: "http://localhost:3000/pagos/failure",
+                    pending: "http://localhost:3000/pagos/pending"
+                }
             }
             console.log("body",body)
 
