@@ -65,18 +65,6 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
-    },
-    "carts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::cart.cart",
-      "mappedBy": "users_permissions_user"
-    },
-    "orders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order.order",
-      "mappedBy": "users_permissions_user"
     }
   }
 }

@@ -17,9 +17,8 @@
   "attributes": {
     "users_permissions_user": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "carts"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
     "total": {
       "type": "integer",
@@ -31,7 +30,7 @@
       "required": true,
       "default": 0
     },
-    "sticker_carts": {
+    "stickers_cart": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::sticker.sticker"

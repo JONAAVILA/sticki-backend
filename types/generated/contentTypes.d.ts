@@ -395,7 +395,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'>;
     publishedAt: Schema.Attribute.DateTime;
-    sticker_carts: Schema.Attribute.Relation<
+    stickers_cart: Schema.Attribute.Relation<
       'oneToMany',
       'api::sticker.sticker'
     >;
@@ -411,7 +411,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -514,6 +514,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'pending'>;
+    stickers: Schema.Attribute.Relation<'oneToMany', 'api::sticker.sticker'>;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -525,7 +526,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -1119,7 +1120,6 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    carts: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1136,7 +1136,6 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
-    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{

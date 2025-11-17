@@ -51,9 +51,13 @@
     },
     "users_permissions_user": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "orders"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "stickers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sticker.sticker"
     }
   }
 }
