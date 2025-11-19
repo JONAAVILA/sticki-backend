@@ -2,6 +2,15 @@
  * notification router
  */
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreRouter('api::notification.notification');
+export default {
+  routes: [
+    {
+      method: 'POST',
+      path: '/notifications',
+      handler: 'notification.receive',
+      config: {
+        auth: false,
+      },
+    },
+  ],
+};
