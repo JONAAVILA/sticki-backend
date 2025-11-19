@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "check_payments",
+  "info": {
+    "singularName": "check-payment",
+    "pluralName": "check-payments",
+    "displayName": "check payment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

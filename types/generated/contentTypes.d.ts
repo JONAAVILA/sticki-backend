@@ -476,6 +476,34 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCheckPaymentCheckPayment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'check_payments';
+  info: {
+    displayName: 'check payment';
+    pluralName: 'check-payments';
+    singularName: 'check-payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::check-payment.check-payment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNotificationNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'notifications';
@@ -1200,6 +1228,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
+      'api::check-payment.check-payment': ApiCheckPaymentCheckPayment;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
       'api::payment.payment': ApiPaymentPayment;

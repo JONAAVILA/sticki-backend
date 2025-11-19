@@ -1,10 +1,8 @@
 import { factories } from '@strapi/strapi';
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { Preference } from 'mercadopago';
+import { mercadopago } from '../../../utils/mpConfig';
 
-const { MP_ACCESS_TOKEN } = process.env
-
-const client = new MercadoPagoConfig({ accessToken: `${MP_ACCESS_TOKEN}` });
-const preference = new Preference(client);
+const preference = new Preference(mercadopago);
 
 export default factories.createCoreController('api::payment.payment',({strapi})=>({
     async create(ctx){
@@ -30,7 +28,6 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
                 },
                 auto_return: "approved",
             }
-            console.log("body",body)
 
             const result = await preference.create({body})
             console.log("result",result)
