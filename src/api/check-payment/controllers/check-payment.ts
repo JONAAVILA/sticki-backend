@@ -13,6 +13,7 @@ export default factories.createCoreController('api::check-payment.check-payment'
 
             const payment = await new Payment(mercadopago).get({id})
             console.log(payment)
+            return payment.status
         } catch (error) {
             strapi.log.error(error)
         }
