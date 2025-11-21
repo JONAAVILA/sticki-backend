@@ -29,10 +29,12 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
                 auto_return: "approved",
             }
 
-            const result = await preference.create({body})
-            console.log("result",result)
+            const { collector_id, init_point } = await preference.create({body})
 
-            return ctx.send(result)
+            return ctx.send({
+                collector_id,
+                init_point
+            })
         } catch (error) {
             strapi.log.error('Error al crear preferencia de Mercado Pago:', error);
             ctx.internalServerError('Error al crear preferencia de pago');
