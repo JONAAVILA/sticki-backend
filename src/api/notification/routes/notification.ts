@@ -5,7 +5,7 @@
 export default {
   routes: [
     {
-      method: 'PUT',
+      method: 'POST',
       path: '/notifications',
       handler: 'notification.receive',
       config: {

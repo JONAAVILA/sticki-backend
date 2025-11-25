@@ -40,15 +40,6 @@
       },
       "required": true
     },
-    "id_payment": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true
-    },
     "users_permissions_user": {
       "type": "relation",
       "relation": "oneToOne",
@@ -58,6 +49,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::sticker.sticker"
+    },
+    "payment_id": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
