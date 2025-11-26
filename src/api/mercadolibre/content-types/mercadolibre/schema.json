@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mercadolibre",
+  "info": {
+    "singularName": "mercadolibre",
+    "pluralName": "mercadolibres",
+    "displayName": "mercadolibre"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}
