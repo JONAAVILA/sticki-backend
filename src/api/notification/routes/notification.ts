@@ -6,7 +6,7 @@ export default {
   routes: [
     {
       method: 'POST',
-      path: '/notifications',
+      path: '/notifications/payments',
       handler: 'notification.receive',
       config: {
         auth: false,
