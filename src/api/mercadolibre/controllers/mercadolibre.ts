@@ -1,15 +1,18 @@
 /**
- * ml-auth controller
+ * A set of functions called "actions" for `mercadolibre`
  */
 
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::mercadolibre.mercadolibre',({strapi})=>({
-    async mercado(ctx){
+    async startAuth(ctx){
         try {
-            return ctx.send("mercado")
+            const redirectUrl = await strapi.service('api::mercadolibre.mercadolibre').buildAuthUrl()
+
+            return ctx.redirect(redirectUrl)
         } catch (error) {
             strapi.log.error('ocurrio un error')
+            return ctx.body = { error: 'No se pudo iniciar el flujo de autenticación.' }
         }   
     },
     async payment(ctx){
