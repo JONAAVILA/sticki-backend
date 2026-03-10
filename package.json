@@ -19,6 +19,7 @@
     "@react-email/render": "^2.0.4",
     "@strapi/plugin-cloud": "5.38.0",
     "@strapi/plugin-users-permissions": "5.38.0",
+    "@strapi/provider-email-nodemailer": "^5.38.0",
     "@strapi/provider-upload-cloudinary": "^5.38.0",
     "@strapi/strapi": "5.38.0",
     "mercadopago": "^2.12.0",
