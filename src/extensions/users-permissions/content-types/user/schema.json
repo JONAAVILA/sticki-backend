@@ -65,6 +65,10 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "confirmedPass": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
