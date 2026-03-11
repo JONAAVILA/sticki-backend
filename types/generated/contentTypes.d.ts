@@ -561,6 +561,35 @@ export interface ApiCheckPaymentCheckPayment
   };
 }
 
+export interface ApiForgetPasswordForgetPassword
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'forget_passwords';
+  info: {
+    displayName: 'forget-password';
+    pluralName: 'forget-passwords';
+    singularName: 'forget-password';
+  };
+  options: {
+    comment: '';
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::forget-password.forget-password'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMercadolibreMercadolibre
   extends Struct.CollectionTypeSchema {
   collectionName: 'mercadolibre';
@@ -1316,6 +1345,7 @@ declare module '@strapi/strapi' {
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::check-payment.check-payment': ApiCheckPaymentCheckPayment;
+      'api::forget-password.forget-password': ApiForgetPasswordForgetPassword;
       'api::mercadolibre.mercadolibre': ApiMercadolibreMercadolibre;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;

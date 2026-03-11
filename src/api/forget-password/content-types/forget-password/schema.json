@@ -1,0 +1,14 @@
+
+{
+  "kind": "collectionType",
+  "collectionName": "forget_passwords",
+  "info": {
+    "singularName": "forget-password",
+    "pluralName": "forget-passwords",
+    "displayName": "forget-password"
+  },
+  "options": {
+    "comment": ""
+  },
+  "attributes": {}
+}

@@ -2,8 +2,9 @@
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "lib": ["ES2020"],
+    "lib": ["ES2020","DOM"],
     "target": "ES2019",
+    "jsx": "react-jsx",
     "strict": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,7 +21,8 @@
     "./",
     // Include all ts files
     "./**/*.ts",
-    // Include all js files
+    // Include all js files  
+    "./**/*.tsx",
     "./**/*.js",
     // Force the JSON files in the src folder to be included
     "src/**/*.json"
