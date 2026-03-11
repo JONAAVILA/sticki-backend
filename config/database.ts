@@ -7,7 +7,7 @@ export default ({ env }) => {
     postgres: {
       connection: {
         connectionString: env('DATABASE_URL'),
-        host: env('DATABASE_HOST', 'localhost'),
+        host: env('DATABASE_HOST', 'aws-1-us-east-2.pooler.supabase.com'),
         port: env.int('DATABASE_PORT', 6543),
         database: env('DATABASE_NAME', 'postgres'),
         user: env('DATABASE_USERNAME'),
