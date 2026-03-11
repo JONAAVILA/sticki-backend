@@ -15,3 +15,4 @@ export default factories.createCoreController('api::forget-password.forget-passw
         }
     }
 }));
+    

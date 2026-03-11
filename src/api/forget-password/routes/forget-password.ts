@@ -2,6 +2,15 @@
  * forget-password router
  */
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreRouter('api::forget-password.forget-password');
+export default {
+  routes: [
+    {
+      method: 'POST',
+      path: '/forget-password',
+      handler: 'forget-password.receive',
+      config: {
+        auth: false,
+      },
+    },
+  ],
+};
