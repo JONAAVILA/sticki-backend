@@ -1,7 +1,7 @@
 import { Html,Button,Section,Text } from "@react-email/components"
  
 export const ConfirmationEmail = ({baseUrl,token})=>{
-    const confirmUrl = `${baseUrl}/api/auth/email-confirmation?confirmation=${token}`;
+    const confirmUrl = `${baseUrl}/validations/email-confirmation?confirmation=${token}`;
 
     return(
         <Html>
