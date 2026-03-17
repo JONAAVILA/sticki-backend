@@ -5,7 +5,7 @@ import * as React from 'react';
 import { render } from '@react-email/render';
 import { factories } from '@strapi/strapi';
 import crypto from "crypto"
-import { ConfirmationEmail } from '../../../email/ConfirmationEmail';
+// import { ConfirmationEmail } from '../../../email/ConfirmationEmail';
 
 export default factories.createCoreService('api::forget-password.forget-password',({strapi})=>({
     async forgetPassword(email:string){
@@ -26,24 +26,24 @@ export default factories.createCoreService('api::forget-password.forget-password
                 }
             })
             
-            const emailHtml = await render(
-                React.createElement(ConfirmationEmail,{
-                    token:resetPasswordToken,
-                    baseUrl:"http://localhost:3000"
-                })
-            )
+            // const emailHtml = await render(
+            //     React.createElement(ConfirmationEmail,{
+            //         token:resetPasswordToken,
+            //         baseUrl:"http://localhost:3000"
+            //     })
+            // )
             
-            const send = await strapi.plugins['email'].services.email.send({
-                to:email,
-                from:'Stiki store',
-                subject:'Restabler contraseña',
-                html:emailHtml
-            })
+            // const send = await strapi.plugins['email'].services.email.send({
+            //     to:email,
+            //     from:'Stiki store',
+            //     subject:'Restabler contraseña',
+            //     html:emailHtml
+            // })
 
-            return {
-                ok:true,
-                message:'Email enviado'
-            }
+            // return {
+            //     ok:true,
+            //     message:'Email enviado'
+            // }
         } catch (error) {
             throw error
         }
