@@ -35,7 +35,6 @@ export default {
                 inviteLink:url
             })
         )
-        console.log("email",html)
 
         await strapi.plugin("email").service("email").send({
             to:email,
