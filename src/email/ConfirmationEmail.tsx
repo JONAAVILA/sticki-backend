@@ -45,7 +45,7 @@ export const ConfirmEmail = ({
       >
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Preview>{previewText}</Preview>
-          <Container className="p-10 max-w-[460px] border rounded-3xl">
+          <Container className="mx-auto my-[40px] p-10 max-w-[465px] border rounded-3xl">
             <Section className="mt-[32px]">
               <Img
                 src="https://res.cloudinary.com/dmcntnjtk/image/upload/v1773752627/icon-light_knfsfq.svg"
@@ -61,25 +61,23 @@ export const ConfirmEmail = ({
               Hola {username}!,
             </Text>
             <Text className="text-[14px] text-black leading-[24px]"> 
-                Para confirmar tu perfil en
-                <strong>Stiki</strong> presiosa el botón debajo.
+                Para confirmar tu perfil en <strong>Stiki</strong> presiosa el botón debajo, te redirigiremos para que ingreses con tu email y contraseña.
             </Text>
-            <Section className='grid'>
-              <Row className='flex justify-center'>
+            <Section>
+              <Row>
                 <Column align="right">
                   <Img
                     className="rounded-full"
                     src="https://res.cloudinary.com/dmcntnjtk/image/upload/v1773758861/icon-profile_eg4sle.svg"
-                    width="50"
-                    height="50"
+                    width="45"
+                    height="45"
                     alt={`foto de perfil de el usuario ${username}`}
                   />
                 </Column>
                 <Column align="center">
                   <Img
                     src="https://res.cloudinary.com/dmcntnjtk/image/upload/v1773755057/arrow-narrow-right_tictyo.svg"
-                    height="20"
-                    width="30"
+                    width="20"
                     alt="flecha de señalación"
                   />
                 </Column>
@@ -87,8 +85,7 @@ export const ConfirmEmail = ({
                   <Img
                     className="rounded-full"
                     src="https://res.cloudinary.com/dmcntnjtk/image/upload/v1773752627/icon-light_knfsfq.svg"
-                    height="50"
-                    width="60"
+                    width="45"
                     alt="Stiki logo"
                   />
                 </Column>
