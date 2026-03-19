@@ -1,5 +1,4 @@
 import { render } from "@react-email/render"
-import jwt from "jsonwebtoken"
 import type { Context } from "koa"
 import React from "react"
 import ConfirmEmail from "../../../email/ConfirmationEmail"
@@ -16,6 +15,10 @@ export default {
         })
         if(isCreated?.email  === email) ctx.throw(400,"El email ya se encuentra registrado")
 
+        const authenticatedRole = await strapi
+            .query("plugin::users-permissions.role")
+            .findOne({ where: { type: "authenticated" } })
+
         const user = await strapi
             .plugin("users-permissions")
             .service("user")
@@ -23,21 +26,24 @@ export default {
                 email,
                 username,
                 password,
-                confirmed:false
+                confirmed:false,
+                provider:"local",
+                role: authenticatedRole.id,
             })
 
-        const token = jwt.sign(
-            {id:user.id},
-            process.env.JWT_SECRET as string,
-            {expiresIn: '30d'}
-        )
+        const jwt = strapi
+        .plugin("users-permissions")
+        .service("jwt")
+        .issue({
+            id: user.id,
+        })
 
         await strapi.query('plugin::users-permissions.user').update({
             where:{id:user.id},
-            data:{confirmationToken:token}
+            data:{confirmationToken:jwt}
         })
 
-        const url = `${REDIRECT_URL}/auth/email-confirmation?confirmation=${token}`
+        const url = `${REDIRECT_URL}/auth/email-confirmation?confirmation=${jwt}`
         
         const html = await render(
             React.createElement(ConfirmEmail,{
