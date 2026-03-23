@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "location_users",
+  "info": {
+    "singularName": "location-user",
+    "pluralName": "location-users",
+    "displayName": "location-user"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "lat": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "long": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "location_users"
+    }
+  }
+}

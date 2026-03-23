@@ -90,6 +90,12 @@
       "minLength": 9,
       "maxLength": 10,
       "regex": "^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/\\d{4}$"
+    },
+    "location_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::location-user.location-user",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

@@ -590,6 +590,45 @@ export interface ApiForgetPasswordForgetPassword
   };
 }
 
+export interface ApiLocationUserLocationUser
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'location_users';
+  info: {
+    displayName: 'location-user';
+    pluralName: 'location-users';
+    singularName: 'location-user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    lat: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::location-user.location-user'
+    > &
+      Schema.Attribute.Private;
+    long: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiMercadolibreMercadolibre
   extends Struct.CollectionTypeSchema {
   collectionName: 'mercadolibre';
@@ -1316,6 +1355,10 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    location_users: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::location-user.location-user'
+    >;
     name: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
@@ -1365,6 +1408,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::check-payment.check-payment': ApiCheckPaymentCheckPayment;
       'api::forget-password.forget-password': ApiForgetPasswordForgetPassword;
+      'api::location-user.location-user': ApiLocationUserLocationUser;
       'api::mercadolibre.mercadolibre': ApiMercadolibreMercadolibre;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
