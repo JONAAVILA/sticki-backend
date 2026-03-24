@@ -11,9 +11,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "address": {
+    "street": {
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
     },
     "lat": {
       "type": "decimal",
@@ -30,6 +31,39 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "location_users"
+    },
+    "location": {
+      "type": "string",
+      "required": true,
+      "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
+    },
+    "state": {
+      "type": "string",
+      "required": true,
+      "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
+    },
+    "zipCode": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 10,
+      "required": true
+    },
+    "country": {
+      "type": "string",
+      "maxLength": 50,
+      "required": true,
+      "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
+    },
+    "floor": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "door": {
+      "type": "string",
+      "minLength": 1,
+      "required": true
     }
   }
 }
