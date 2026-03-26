@@ -32,12 +32,12 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "location_users"
     },
-    "location": {
+    "region": {
       "type": "string",
       "required": true,
       "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
     },
-    "state": {
+    "place": {
       "type": "string",
       "required": true,
       "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
@@ -54,16 +54,15 @@
       "required": true,
       "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ.,\\s]+$"
     },
-    "floor": {
-      "type": "integer",
-      "required": true,
-      "default": 0,
-      "min": 0
-    },
     "door": {
       "type": "string",
       "minLength": 1,
-      "required": true
+      "required": false
+    },
+    "floor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 3
     }
   }
 }
