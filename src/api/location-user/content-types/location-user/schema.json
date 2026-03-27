@@ -63,6 +63,11 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 3
+    },
+    "number": {
+      "type": "string",
+      "maxLength": 6,
+      "required": true
     }
   }
 }

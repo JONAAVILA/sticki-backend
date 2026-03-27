@@ -614,6 +614,11 @@ export interface ApiLocationUserLocationUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    floor: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 3;
+        minLength: 1;
+      }>;
     lat: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
@@ -626,6 +631,11 @@ export interface ApiLocationUserLocationUser
     long: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
+    number: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 6;
+      }>;
     place: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String & Schema.Attribute.Required;
