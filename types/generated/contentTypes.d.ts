@@ -621,6 +621,10 @@ export interface ApiLocationUserLocationUser
       }>;
     lat: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 12;
+        minLength: 4;
+      }> &
       Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -630,6 +634,10 @@ export interface ApiLocationUserLocationUser
       Schema.Attribute.Private;
     long: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 12;
+        minLength: 4;
+      }> &
       Schema.Attribute.DefaultTo<0>;
     number: Schema.Attribute.String &
       Schema.Attribute.Required &
