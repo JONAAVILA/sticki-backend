@@ -60,16 +60,20 @@
       "required": true
     },
     "lat": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 20,
-      "required": true
+      "type": "decimal",
+      "required": true,
+      "column": {
+        "precision": 12,
+        "scale": 9
+      }
     },
     "long": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 20,
-      "required": true
+      "type": "decimal",
+      "required": true,
+      "column": {
+        "precision": 12,
+        "scale": 9
+      }
     }
   }
 }
