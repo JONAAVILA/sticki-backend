@@ -619,26 +619,24 @@ export interface ApiLocationUserLocationUser
         maxLength: 3;
         minLength: 1;
       }>;
-    lat: Schema.Attribute.Decimal &
+    lat: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 12;
-        minLength: 4;
-      }> &
-      Schema.Attribute.DefaultTo<0>;
+        maxLength: 20;
+        minLength: 3;
+      }>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::location-user.location-user'
     > &
       Schema.Attribute.Private;
-    long: Schema.Attribute.Decimal &
+    long: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 12;
-        minLength: 4;
-      }> &
-      Schema.Attribute.DefaultTo<0>;
+        maxLength: 20;
+        minLength: 3;
+      }>;
     number: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
