@@ -18,11 +18,15 @@
     },
     "lat": {
       "type": "decimal",
+      "precision": 10,
+      "scale": 6,
       "required": true,
       "default": 0
     },
     "long": {
       "type": "decimal",
+      "precision": 10,
+      "scale": 6,
       "required": true,
       "default": 0
     },
