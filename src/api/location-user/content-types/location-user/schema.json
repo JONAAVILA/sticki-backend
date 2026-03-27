@@ -20,6 +20,8 @@
       "type": "decimal",
       "precision": 10,
       "scale": 6,
+      "minLength": 4,
+      "maxLength": 12,
       "required": true,
       "default": 0
     },
@@ -27,6 +29,8 @@
       "type": "decimal",
       "precision": 10,
       "scale": 6,
+      "minLength": 4,
+      "maxLength": 12,
       "required": true,
       "default": 0
     },
