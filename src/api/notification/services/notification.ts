@@ -10,6 +10,7 @@ export default factories.createCoreService('api::notification.notification',({st
     async checkAndUpdateOrder(id : string){
         try {
             const payment = await new Payment(mercadopago).get({id})
+            console.log("payment",payment)
             const paymentId = payment.additional_info.items[0].id
 
             await strapi.documents('api::order.order').update({

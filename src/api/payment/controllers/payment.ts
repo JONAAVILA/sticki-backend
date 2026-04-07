@@ -22,9 +22,9 @@ export default factories.createCoreController('api::payment.payment',({strapi})=
                     currency_id: item.currency_id ?? 'ARS',
                 })),
                 back_urls: {
-                    success: "https://k9z0l866-3000.brs.devtunnels.ms/payment/success",
-                    failure: "https://k9z0l866-3000.brs.devtunnels.ms/payment/failure",
-                    pending: "https://k9z0l866-3000.brs.devtunnels.ms/payment/pending"
+                    success: "https://jntx3txj-3000.brs.devtunnels.ms/payment/success",
+                    failure: "https://jntx3txj-3000.brs.devtunnels.ms/payment/failure",
+                    pending: "https://jntx3txj-3000.brs.devtunnels.ms/payment/pending"
                 },
                 auto_return: "approved",
             }
