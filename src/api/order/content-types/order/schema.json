@@ -49,8 +49,7 @@
     "stickers": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::sticker.sticker",
-      "mappedBy": "order"
+      "target": "api::sticker.sticker"
     },
     "payment_id": {
       "type": "string",

@@ -871,7 +871,6 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
     price: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
