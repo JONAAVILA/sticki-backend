@@ -96,6 +96,12 @@
       "relation": "oneToMany",
       "target": "api::location-user.location-user",
       "mappedBy": "users_permissions_user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
