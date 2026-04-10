@@ -100,7 +100,8 @@
     "orders": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::order.order"
+      "target": "api::order.order",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
