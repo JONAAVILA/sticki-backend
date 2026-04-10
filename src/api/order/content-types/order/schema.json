@@ -27,6 +27,7 @@
       "enum": [
         "pending",
         "approved",
+        "onTheWay",
         "dispatched",
         "filled"
       ]
@@ -46,11 +47,6 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "orders"
     },
-    "stickers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::sticker.sticker"
-    },
     "payment_id": {
       "type": "string",
       "pluginOptions": {
@@ -58,6 +54,12 @@
           "localized": true
         }
       }
+    },
+    "sticker": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sticker.sticker",
+      "inversedBy": "orders"
     }
   }
 }

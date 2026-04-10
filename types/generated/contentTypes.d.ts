@@ -737,7 +737,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       }>;
     publishedAt: Schema.Attribute.DateTime;
     statusOrder: Schema.Attribute.Enumeration<
-      ['pending', 'approved', 'dispatched', 'filled']
+      ['pending', 'approved', 'onTheWay', 'dispatched', 'filled']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -745,7 +745,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'pending'>;
-    stickers: Schema.Attribute.Relation<'oneToMany', 'api::sticker.sticker'>;
+    sticker: Schema.Attribute.Relation<'manyToOne', 'api::sticker.sticker'>;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -871,6 +871,7 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     price: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{

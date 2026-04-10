@@ -114,6 +114,12 @@
         "images",
         "videos"
       ]
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "sticker"
     }
   }
 }
