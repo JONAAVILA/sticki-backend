@@ -41,12 +41,6 @@
       },
       "required": true
     },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "orders"
-    },
     "payment_id": {
       "type": "string",
       "pluginOptions": {
@@ -55,11 +49,10 @@
         }
       }
     },
-    "sticker": {
+    "stickers": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::sticker.sticker",
-      "inversedBy": "orders"
+      "relation": "oneToMany",
+      "target": "api::sticker.sticker"
     }
   }
 }

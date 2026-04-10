@@ -745,7 +745,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'pending'>;
-    sticker: Schema.Attribute.Relation<'manyToOne', 'api::sticker.sticker'>;
+    stickers: Schema.Attribute.Relation<'oneToMany', 'api::sticker.sticker'>;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -756,10 +756,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -871,7 +867,6 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     price: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
