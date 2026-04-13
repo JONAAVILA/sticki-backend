@@ -61,19 +61,19 @@
     },
     "lat": {
       "type": "decimal",
-      "required": true,
-      "column": {
-        "precision": 12,
-        "scale": 9
-      }
+      "required": true
     },
     "long": {
       "type": "decimal",
+      "required": true
+    },
+    "typeAddress": {
+      "type": "enumeration",
       "required": true,
-      "column": {
-        "precision": 12,
-        "scale": 9
-      }
+      "enum": [
+        "residential",
+        "labor"
+      ]
     }
   }
 }

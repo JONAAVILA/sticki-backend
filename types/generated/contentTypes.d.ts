@@ -636,6 +636,8 @@ export interface ApiLocationUserLocationUser
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String & Schema.Attribute.Required;
     street: Schema.Attribute.String & Schema.Attribute.Required;
+    typeAddress: Schema.Attribute.Enumeration<['residential', 'labor']> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
