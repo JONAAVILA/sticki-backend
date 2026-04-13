@@ -22,7 +22,7 @@ export default factories.createCoreService('api::notification.notification',({st
             if(isValidPayment){
                 await strapi.documents('api::order.order').update({
                     documentId:paymentId,
-                    locale:'en',
+                    locale:'es-AR',
                     data:{
                         statusOrder:'approved',
                         payment_id:id
