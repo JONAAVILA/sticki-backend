@@ -12,12 +12,11 @@ export default factories.createCoreService('api::notification.notification',({st
     async checkAndUpdateOrder(id : string){
         try {
             const payment = await new Payment(mercadopago).get({id})
-            console.log("payment",payment)
             const paymentId = payment.additional_info.items[0].id
 
             const isValidPayment =
                 payment.live_mode === true &&
-                payment.status === "aprovved" &&
+                payment.status === "approved" &&
                 TEST_MODE === "true" ? true : !payment.payer.email.includes("testuser.com")
 
             if(isValidPayment){
