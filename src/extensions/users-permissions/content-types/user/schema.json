@@ -102,6 +102,10 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "users_permissions_user"
+    },
+    "avatar_url": {
+      "type": "string",
+      "regex": "^https:\\/\\/([a-zA-Z0-9-]+\\.)*cloudinary\\.com(\\/.*)?$"
     }
   }
 }
