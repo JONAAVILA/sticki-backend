@@ -5,24 +5,39 @@
 import crypto from "crypto"
 
 export default {
-    getSignature : async (ctx, next) => {
-      try {
-        const timestamp = Math.round(new Date().getTime() / 1000)
+ getSignature: async (ctx) => {
+    try {
+      const user = ctx.state.user
 
-        const signature = crypto
-          .createHash("sha1")
-          .update(`timestamp=${timestamp}${process.env.CLOUDINARY_SECRET}`)
-          .digest("hex")
+      if (!user) {
+        return ctx.unauthorized("No autenticado")
+      }
 
-        ctx.send({
-            timestamp,
-            signature,
-            cloudName:process.env.CLOUDINARY_NAME,
-            apiKey:process.env.CLOUDINARY_KEY
-        }) 
-      } catch (err) {
-        console.log('Error al crear preferencia de Mercado Pago:', err);
-        return "ocurrió un error"
+      const timestamp = Math.round(Date.now() / 1000)
+
+      const folder = `avatars/${user.id}`
+      const public_id = "avatar"
+      const overwrite = "true"
+
+      const stringToSign = `folder=${folder}&overwrite=${overwrite}&public_id=${public_id}&timestamp=${timestamp}`
+
+      const signature = crypto
+        .createHash("sha1")
+        .update(stringToSign + process.env.CLOUDINARY_SECRET)
+        .digest("hex")
+
+      ctx.send({
+        timestamp,
+        signature,
+        folder,
+        public_id,
+        overwrite,
+        cloudName: process.env.CLOUDINARY_NAME,
+        apiKey: process.env.CLOUDINARY_KEY,
+      })
+    } catch (err) {
+      console.log(err)
+      ctx.throw(500, "Error generando firma")
     }
-  }
+  },
 };
