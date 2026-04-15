@@ -5,14 +5,8 @@
 import signCloudinary from "../services/sign-cloudinary";
 
 export default {
-    getSignature : async ({ctx, next}) => {
+    getSignature : async (ctx, next) => {
       try {
-          const user = ctx.state.user
-
-          if (!user) {
-            return ctx.unauthorized("No autenticado")
-          }
-
           const data = signCloudinary()
           ctx.send(data)
       } catch (err) {
