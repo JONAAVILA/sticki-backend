@@ -624,6 +624,9 @@ export interface ApiLocationUserLocationUser
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    isDefault: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     lat: Schema.Attribute.Decimal & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

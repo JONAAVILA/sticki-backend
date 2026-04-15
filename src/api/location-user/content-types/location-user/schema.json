@@ -80,6 +80,11 @@
       "maxLength": 200,
       "required": true,
       "regex": "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\\s,.\\-#]+$"
+    },
+    "isDefault": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   }
 }
