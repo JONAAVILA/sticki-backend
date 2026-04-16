@@ -59,6 +59,11 @@
       "relation": "manyToOne",
       "target": "api::store.store",
       "inversedBy": "orders"
+    },
+    "buyer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

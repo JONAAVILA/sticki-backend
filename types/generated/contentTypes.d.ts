@@ -730,6 +730,10 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    buyer: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
