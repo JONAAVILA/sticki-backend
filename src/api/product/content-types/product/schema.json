@@ -101,33 +101,6 @@
       "relation": "oneToMany",
       "target": "api::category.category"
     },
-    "cover": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "images": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ]
-    },
     "store": {
       "type": "relation",
       "relation": "manyToOne",
