@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "stickers",
+  "collectionName": "products",
   "info": {
-    "singularName": "sticker",
-    "pluralName": "stickers",
-    "displayName": "sticker"
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product"
   },
   "options": {
     "draftAndPublish": true
@@ -22,45 +22,55 @@
           "localized": true
         }
       },
-      "required": true
+      "minLength": 3,
+      "maxLength": 80,
+      "required": true,
+      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\\s.,-]+$"
     },
     "description": {
-      "type": "string",
+      "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "minLength": 10,
+      "maxLength": 300,
+      "required": true,
+      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\\s.,-]+$"
     },
     "price": {
-      "type": "integer",
+      "type": "biginteger",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "required": true,
+      "max": "1000000"
     },
     "stock": {
-      "type": "integer",
+      "type": "biginteger",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "required": true,
-      "default": 1
+      "min": "1",
+      "max": "1000000"
     },
     "minOrder": {
-      "type": "integer",
+      "type": "biginteger",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "required": true,
-      "default": 1
+      "default": "1",
+      "min": "1",
+      "max": "1000000"
     },
     "discount": {
       "type": "integer",
@@ -70,7 +80,9 @@
         }
       },
       "required": true,
-      "default": 0
+      "default": 0,
+      "min": 0,
+      "max": 100
     },
     "deliveryTime": {
       "type": "integer",
@@ -80,11 +92,13 @@
         }
       },
       "required": true,
-      "default": 24
+      "default": 1,
+      "min": 1,
+      "max": 100
     },
-    "category": {
+    "categories": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::category.category"
     },
     "cover": {
@@ -94,11 +108,10 @@
           "localized": true
         }
       },
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ]
     },
     "images": {
@@ -109,11 +122,17 @@
         }
       },
       "multiple": true,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "videos"
       ]
+    },
+    "store": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::store.store",
+      "inversedBy": "products"
     }
   }
 }

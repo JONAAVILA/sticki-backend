@@ -97,15 +97,15 @@
       "target": "api::location-user.location-user",
       "mappedBy": "users_permissions_user"
     },
-    "orders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order.order",
-      "mappedBy": "users_permissions_user"
-    },
     "avatar_url": {
       "type": "string",
       "regex": "^https:\\/\\/([a-zA-Z0-9-]+\\.)*cloudinary\\.com(\\/.*)?$"
+    },
+    "store": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::store.store",
+      "mappedBy": "owner"
     }
   }
 }

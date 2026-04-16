@@ -29,11 +29,6 @@
       },
       "required": true,
       "default": 0
-    },
-    "stickers_cart": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::sticker.sticker"
     }
   }
 }

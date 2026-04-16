@@ -452,10 +452,6 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'>;
     publishedAt: Schema.Attribute.DateTime;
-    stickers_cart: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::sticker.sticker'
-    >;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -745,6 +741,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     statusOrder: Schema.Attribute.Enumeration<
       ['pending', 'approved', 'onTheWay', 'dispatched', 'filled']
@@ -755,7 +752,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'pending'>;
-    stickers: Schema.Attribute.Relation<'oneToMany', 'api::sticker.sticker'>;
+    store: Schema.Attribute.Relation<'manyToOne', 'api::store.store'>;
     total: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -766,10 +763,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -805,12 +798,12 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
-  collectionName: 'stickers';
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
   info: {
-    displayName: 'sticker';
-    pluralName: 'stickers';
-    singularName: 'sticker';
+    displayName: 'product';
+    pluralName: 'products';
+    singularName: 'product';
   };
   options: {
     draftAndPublish: true;
@@ -821,8 +814,11 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
-    cover: Schema.Attribute.Media<'images' | 'files'> &
+    categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    cover: Schema.Attribute.Media<'images', true> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -839,13 +835,24 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }> &
-      Schema.Attribute.DefaultTo<24>;
-    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    description: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+        minLength: 10;
       }>;
     discount: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -854,8 +861,16 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      > &
       Schema.Attribute.DefaultTo<0>;
     images: Schema.Attribute.Media<'images' | 'videos', true> &
+      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -864,39 +879,108 @@ export interface ApiStickerSticker extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::sticker.sticker'
+      'api::product.product'
     >;
-    minOrder: Schema.Attribute.Integer &
+    minOrder: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
-      Schema.Attribute.DefaultTo<1>;
+      Schema.Attribute.SetMinMax<
+        {
+          max: '1000000';
+          min: '1';
+        },
+        string
+      > &
+      Schema.Attribute.DefaultTo<'1'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+        minLength: 3;
       }>;
-    price: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    stock: Schema.Attribute.Integer &
+    price: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
-      Schema.Attribute.DefaultTo<1>;
+      Schema.Attribute.SetMinMax<
+        {
+          max: '1000000';
+        },
+        string
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    stock: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: '1000000';
+          min: '1';
+        },
+        string
+      >;
+    store: Schema.Attribute.Relation<'manyToOne', 'api::store.store'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStoreStore extends Struct.CollectionTypeSchema {
+  collectionName: 'stores';
+  info: {
+    displayName: 'store';
+    pluralName: 'stores';
+    singularName: 'store';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::store.store'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    owner: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1398,7 +1482,6 @@ export interface PluginUsersPermissionsUser
         maxLength: 40;
         minLength: 3;
       }>;
-    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -1416,6 +1499,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    store: Schema.Attribute.Relation<'oneToOne', 'api::store.store'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1448,7 +1532,8 @@ declare module '@strapi/strapi' {
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
       'api::payment.payment': ApiPaymentPayment;
-      'api::sticker.sticker': ApiStickerSticker;
+      'api::product.product': ApiProductProduct;
+      'api::store.store': ApiStoreStore;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

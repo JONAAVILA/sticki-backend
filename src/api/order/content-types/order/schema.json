@@ -49,15 +49,15 @@
         }
       }
     },
-    "stickers": {
+    "products": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::sticker.sticker"
+      "target": "api::product.product"
     },
-    "users_permissions_user": {
+    "store": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
+      "target": "api::store.store",
       "inversedBy": "orders"
     }
   }
