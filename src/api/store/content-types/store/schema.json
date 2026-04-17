@@ -43,6 +43,12 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "store"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category",
+      "mappedBy": "store"
     }
   }
 }
