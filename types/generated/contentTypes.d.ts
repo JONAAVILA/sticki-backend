@@ -1442,6 +1442,12 @@ export interface PluginUsersPermissionsUser
         minLength: 9;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    clerkId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+        minLength: 10;
+      }>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;

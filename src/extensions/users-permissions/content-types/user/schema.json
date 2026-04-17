@@ -106,6 +106,12 @@
       "relation": "oneToOne",
       "target": "api::store.store",
       "mappedBy": "owner"
+    },
+    "clerkId": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 100,
+      "required": true
     }
   }
 }
