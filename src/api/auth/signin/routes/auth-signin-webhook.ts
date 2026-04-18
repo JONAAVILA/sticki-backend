@@ -2,7 +2,7 @@ module.exports = {
   routes: [
     {
       method: "POST",
-      path: "/auth/register",
+      path: "/auth/signin-webhook",
       handler: "auth.register",
       config: {
         auth: false,
