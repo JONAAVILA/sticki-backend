@@ -38,15 +38,15 @@ export default {
         const type = evt.type
 
         if(type === "user.created"){
-            const role = await strapi.entityService.findMany('plugin::users-permissions-role',{
-                filters:{type:'authenticated'}
-            })
+            const role = await strapi
+                .query("plugin::users-permissions.role")
+                .findOne({ where: { type: "authenticated" } })
 
             if(!role) {
                 throw new Error("No se encontró el rol 'authenticated' en Strapi");
             }
 
-            await strapi.entityService.create('plugin::users-permissions-user',{
+            await strapi.entityService.create('plugin::users-permissions.user',{
                 data:{
                     name:first_name,
                     lastname:last_name,
