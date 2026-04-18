@@ -3,7 +3,7 @@ module.exports = {
     {
       method: "POST",
       path: "/auth/signin-webhook",
-      handler: "auth.register",
+      handler: "auth-signin-webhook.register",
       config: {
         auth: false,
       },
