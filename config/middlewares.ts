@@ -1,7 +1,7 @@
 export default [
   'strapi::logger',
   'strapi::errors',
-  'strapi::cors'
+  'strapi::cors',
   'strapi::security',
   'strapi::poweredBy',
   'strapi::query',
