@@ -2,13 +2,16 @@ import { verifyToken } from "@clerk/backend"
 
 export default ({strapi})=>{
     return async (ctx,next)=>{
+        console.log("ejecuto middle")
         const authHeader = ctx.request.header.authorization
-
+        console.log("authheader",authHeader)
+        
         if(!authHeader || !authHeader.startsWith('Bearer ')){
             return await next()
         }
-
+        
         const token = authHeader.split(' ')[1]
+        console.log("auth token",token)
 
         try {
             const payload = await verifyToken(
@@ -32,8 +35,8 @@ export default ({strapi})=>{
                 return
             }
         } catch (error) {
-            console.error('Error de validación en Clerk:', error.message);
-            return ctx.unauthorized('Token inválido');
+            console.error('Error de validación en Clerk:', error.message)
+            return ctx.unauthorized('Token inválido')
         }
         return await next()
     }
