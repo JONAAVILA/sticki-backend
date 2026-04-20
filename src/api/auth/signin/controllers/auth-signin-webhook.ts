@@ -1,7 +1,7 @@
 import type { Context } from "koa"
 import { Webhook } from "svix"
 
-const { CLERK_SECRET_KEY } = process.env
+const { CLERK_WEBHOOK_SECRET } = process.env
 
 export default {
     async register(ctx:Context){
@@ -10,7 +10,7 @@ export default {
             console.log("header",headers)
             const payload = JSON.stringify(ctx.request.body)
             console.log("payload",payload)
-            const wh = new Webhook(CLERK_SECRET_KEY)
+            const wh = new Webhook(CLERK_WEBHOOK_SECRET)
             console.log("webhook",wh)
             
             const svix_id = headers["svix-id"];
