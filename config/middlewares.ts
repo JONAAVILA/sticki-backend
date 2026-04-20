@@ -10,7 +10,10 @@ export default [
   'strapi::favicon',
   'strapi::public',
   {
-    name: "strapi::body",
+    name: 'global::clerk-auth',
+  },
+  {
+    name: 'strapi::body',
     config: {
       includeUnparsed: true,
     },
