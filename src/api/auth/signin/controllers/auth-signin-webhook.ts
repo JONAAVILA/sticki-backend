@@ -8,7 +8,7 @@ export default {
         try {
             const headers = ctx.request.headers
             console.log("header",headers)
-            const payload = JSON.stringify(ctx.request.body)
+            const payload = ctx.request.body[Symbol.for("unparsedBody")]
             console.log("payload",payload)
             const wh = new Webhook(CLERK_WEBHOOK_SECRET)
             console.log("webhook",wh)
