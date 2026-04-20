@@ -36,8 +36,8 @@ export default {
         console.log("data webhook", id, image_url, email_addresses, first_name, last_name, external_accounts )
         
         const provider = external_accounts.length && external_accounts[0].provider 
-        const userName = email_addresses.split("@")[0]
         const email = email_addresses[0].email_address
+        const userName = email.split("@")[0]
         const type = evt.type
 
         if(type === "session.created"){
