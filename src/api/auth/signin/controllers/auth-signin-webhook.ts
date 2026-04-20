@@ -49,24 +49,30 @@ export default {
                 throw new Error("No se encontró el rol 'authenticated' en Strapi");
             }
             
-            const user = await strapi
-            .plugin("users-permissions")
-            .service("user")
-            .add({
-                name:first_name,
-                lastname:last_name,
-                username:userName,
-                email:email,
-                clerkId:id,
-                role:role.id,
-                confirmed:true,
-                provider:provider,
-                avatar_url:image_url
-            })
-
-            console.log("create user",user)
+            try {
+                const user = await strapi
+                .plugin("users-permissions")
+                .service("user")
+                .add({
+                    name:first_name,
+                    lastname:last_name,
+                    username:userName,
+                    email:email,
+                    clerkId:id,
+                    role:role.id,
+                    confirmed:true,
+                    provider:provider,
+                    avatar_url:image_url
+                })
+    
+                console.log("create user",user)
+                
+                return ctx.send({ message: 'Usuario creado' });
+                
+            } catch (error) {
+                console.log("error webhook",error)
+            }
             
-            return ctx.send({ message: 'Usuario creado' });
         }
         return ctx.send({ message: 'Evento ignorado' });
     }
