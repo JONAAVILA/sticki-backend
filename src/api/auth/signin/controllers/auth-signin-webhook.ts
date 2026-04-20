@@ -31,10 +31,13 @@ export default {
             return ctx.badRequest('Firma de Webhook inválida')
         }
 
-        const { id, email_addresses, first_name, last_name, external_accounts } = evt.data
+        const { id, image_url, email_addresses, first_name, last_name, external_accounts } = evt.data
+
+        console.log("data webhook", id, image_url, email_addresses, first_name, last_name, external_accounts )
+        
         const provider = external_accounts.length && external_accounts[0].provider 
         const userName = email_addresses.split("@")[0]
-        const email = email_addresses[0].email_addresses
+        const email = email_addresses[0].email_address
         const type = evt.type
 
         if(type === "user.created"){
@@ -46,7 +49,7 @@ export default {
                 throw new Error("No se encontró el rol 'authenticated' en Strapi");
             }
             
-            await strapi
+            const user = await strapi
             .plugin("users-permissions")
             .service("user")
             .add({
@@ -57,8 +60,11 @@ export default {
                 clerkId:id,
                 role:role.id,
                 confirmed:true,
-                provider:provider
+                provider:provider,
+                avatar_url:image_url
             })
+
+            console.log("create user",user)
             
             return ctx.send({ message: 'Usuario creado' });
         }
