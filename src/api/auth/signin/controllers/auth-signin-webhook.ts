@@ -7,12 +7,18 @@ export default {
     async register(ctx:Context){
         try {
             const headers = ctx.request.headers
+            console.log("header",headers)
             const payload = JSON.stringify(ctx.request.body)
+            console.log("payload",payload)
             const wh = new Webhook(CLERK_SECRET_KEY)
-    
+            console.log("webhook",wh)
+            
             const svix_id = headers["svix-id"];
+            console.log("svix_id",svix_id)
             const svix_timestamp = headers["svix-timestamp"];
+            console.log("svix_timestamp",svix_timestamp)
             const svix_signature = headers["svix-signature"];
+            console.log("svix_signature",svix_signature)
     
             if (!svix_id || !svix_timestamp || !svix_signature || Array.isArray(svix_id) || Array.isArray(svix_timestamp) || Array.isArray(svix_signature)) {
                 return ctx.badRequest('Faltan encabezados de Svix o el formato es inválido');
@@ -28,7 +34,9 @@ export default {
                         "svix-signature": svix_signature,
                     }
                 )
+                console.log("evt",evt)
             } catch (error) {
+                console.log("error evt",error)
                 return ctx.badRequest('Firma de Webhook inválida')
             }
     
