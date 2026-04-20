@@ -40,7 +40,7 @@ export default {
         const email = email_addresses[0].email_address
         const type = evt.type
 
-        if(type === "user.created"){
+        if(type === "session.created"){
             const role = await strapi
                 .query("plugin::users-permissions.role")
                 .findOne({ where: { type: "authenticated" } })
