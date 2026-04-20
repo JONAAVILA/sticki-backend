@@ -45,18 +45,19 @@ export default {
             if(!role) {
                 throw new Error("No se encontró el rol 'authenticated' en Strapi");
             }
-
-            await strapi.entityService.create('plugin::users-permissions.user',{
-                data:{
-                    name:first_name,
-                    lastname:last_name,
-                    username:userName,
-                    email:email,
-                    clerkId:id,
-                    role:role.id,
-                    confirmed:true,
-                    provider:provider
-                }
+            
+            await strapi
+            .plugin("users-permissions")
+            .service("user")
+            .add({
+                name:first_name,
+                lastname:last_name,
+                username:userName,
+                email:email,
+                clerkId:id,
+                role:role.id,
+                confirmed:true,
+                provider:provider
             })
             
             return ctx.send({ message: 'Usuario creado' });
