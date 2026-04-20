@@ -28,6 +28,8 @@ export default ({strapi})=>{
                     ctx.state.user = user
                     ctx.isAuthenticated = true
                 }
+                console.log("user middleware",user)
+                return
             }
         } catch (error) {
             console.error('Error de validación en Clerk:', error.message);
