@@ -1,0 +1,14 @@
+
+{
+  "kind": "collectionType",
+  "collectionName": "signups",
+  "info": {
+    "singularName": "signup",
+    "pluralName": "signups",
+    "displayName": "signup"
+  },
+  "options": {
+    "comment": ""
+  },
+  "attributes": {}
+}
