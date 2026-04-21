@@ -2,8 +2,9 @@ import { Webhook } from "svix"
 
 const { CLERK_WEBHOOK_SECRET } = process.env
 
-export default {
-    async register(ctx,next){
+export default{
+    receive:async(ctx)=>{
+        console.log("req",ctx.request)
         console.log("se ejecuto")
         try {
             const headers = ctx.request.headers
