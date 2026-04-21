@@ -3,26 +3,11 @@
  */
 
 import { factories } from '@strapi/strapi';
-import { verifyToken } from "@clerk/backend"
-
-const { CLERK_SECRET_KEY } = process.env
 
 export default factories.createCoreController('api::user-me.user-me',({strapi})=>({
     async getUser(ctx){
         try {
-            const clerkId = ctx.state.user.clerkId
-            console.log("id",clerkId)
-            // const authHeader = ctx.request.headers.authorization
-            // if(!authHeader) return ctx.unauthorized()
-
-            // const token = authHeader.split(' ')[1]
-
-            // const session = await verifyToken(
-            //     token,
-            //     {secretKey:CLERK_SECRET_KEY}
-            // )
-            
-            // const clerkId = session.sub
+            const clerkId = await ctx.state.clerkId
 
             const user = await strapi
                 .query('plugin::users-permissions.user')
@@ -32,7 +17,8 @@ export default factories.createCoreController('api::user-me.user-me',({strapi})=
 
             return ctx.send(user)
         } catch (error) {
-            return error
+            strapi.log.error(error)
+            return ctx.unauthorized("Usuario desconocido")        
         }
     }
 }));

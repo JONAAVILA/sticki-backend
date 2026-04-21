@@ -44,6 +44,7 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
             const type = evt.type
     
             if(type === "user.created"){
+                
                 const isAlreadyEmail = await strapi
                     .query('plugin::users-permissions.user')
                     .findOne({
