@@ -23,7 +23,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
           {secretKey:CLERK_SECRET_KEY}
       )
 
-      ctx.state = {
+      ctx.state.user = {
         clerkId: session.sub,
       }
 

@@ -3,45 +3,17 @@
  */
 
 import { factories } from '@strapi/strapi';
-import { Webhook } from 'svix';
-
-const { CLERK_WEBHOOK_SECRET } = process.env
 
 export default factories.createCoreController('api::signup.signup',({strapi})=>({
     async receive(ctx){
         try {
-            const headers = ctx.request.headers
-            const body = JSON.stringify(ctx.request.body)
-            const wh = new Webhook(CLERK_WEBHOOK_SECRET)
-            
-            const svix_id = headers["svix-id"];
-            const svix_timestamp = headers["svix-timestamp"];
-            const svix_signature = headers["svix-signature"];
-    
-            if (!svix_id || !svix_timestamp || !svix_signature || Array.isArray(svix_id) || Array.isArray(svix_timestamp) || Array.isArray(svix_signature)) {
-                return ctx.badRequest('Faltan encabezados de Svix o el formato es inválido');
-            }
-    
-            let evt
-            try {
-                evt = wh.verify(
-                    body,
-                    {
-                        "svix-id": svix_id,
-                        "svix-timestamp": svix_timestamp,
-                        "svix-signature": svix_signature,
-                    }
-                )
-            } catch (error) {
-                return ctx.badRequest('Firma de Webhook inválida')
-            }
-    
-            const { id, image_url, email_addresses, first_name, last_name, external_accounts } = evt.data
+            const data = ctx.state.data
+            const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
             
             const provider = external_accounts.length && external_accounts[0].provider 
             const email = email_addresses[0].email_address
             const userName = email.split("@")[0]
-            const type = evt.type
+            const type = data.type
     
             if(type === "user.created"){
                 

@@ -9,8 +9,9 @@ export default {
       path: '/auth/signup-webhook',
       handler: 'signup.receive',
       config: {
-        auth: false,
-      },
+        middlewares:['api::signup.clerk-webhook'],
+        auth: false
+      }
     },
   ],
 };
