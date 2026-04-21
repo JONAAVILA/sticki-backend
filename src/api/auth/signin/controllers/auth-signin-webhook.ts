@@ -1,25 +1,11 @@
-import { verifyToken } from "@clerk/backend"
 import { Webhook } from "svix"
 
 const { CLERK_WEBHOOK_SECRET } = process.env
 
 export default {
     async register(ctx,next){
+        console.log("se ejecuto")
         try {
-            const authHeader = ctx.request.header.authorization
-
-            if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                 await next()
-            }
-            
-            const token = authHeader.split(' ')[1]
-            const payload = await verifyToken(
-                token, 
-                { secretKey: process.env.CLERK_SECRET_KEY }
-            )
-
-            const clerkIdToken = payload.sub
-            
             const headers = ctx.request.headers
             console.log("header",headers)
             const body = ctx.request.body[Symbol.for("unparsedBody")]
@@ -55,8 +41,6 @@ export default {
             }
     
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = evt.data
-
-            if(clerkIdToken !== id) throw new Error("Incoherencia de ids");
             
             console.log("data webhook", id, image_url, email_addresses, first_name, last_name, external_accounts )
             
@@ -93,7 +77,8 @@ export default {
                 
                 return ctx.send({ message: 'Usuario creado' });
             }else{
-                return console.log("método no autorizado")
+                console.log("método no autorizado")
+                return 
             }
             
         } catch (error) {
