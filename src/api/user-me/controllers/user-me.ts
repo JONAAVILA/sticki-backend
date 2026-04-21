@@ -23,7 +23,8 @@ export default factories.createCoreController('api::user-me.user-me',({strapi})=
             const clerkId = session.sub
 
             const user = await strapi
-                .query('api::user-me.user-me')
+                .plugin('api::user-me')
+                .service('user-me')
                 .findOne({
                     where:{clerkId:clerkId}
                 })
