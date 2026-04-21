@@ -44,6 +44,13 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
             const type = evt.type
     
             if(type === "user.created"){
+                const isAlreadyEmail = await strapi
+                    .query('plugin::users-permissions.user')
+                    .findOne({
+                        where:{email:email}
+                    })
+                if(isAlreadyEmail) return ctx.badRequest("El usuario ya existe")
+
                 const role = await strapi
                     .query("plugin::users-permissions.role")
                     .findOne({ where: { type: "authenticated" } })
@@ -71,8 +78,7 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
             }else{
                 console.log("método no autorizado")
                 return 
-            }
-            
+            } 
         } catch (error) {
             console.log("error webhook",error)
             return ctx.send({ message: 'Evento ignorado' });
