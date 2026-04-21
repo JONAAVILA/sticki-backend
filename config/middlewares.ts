@@ -8,14 +8,5 @@ export default [
   'strapi::body',
   'strapi::session',
   'strapi::favicon',
-  'strapi::public',
-  {
-    name: 'global::auth-clerk',
-  },
-  {
-    name: 'strapi::body',
-    config: {
-      includeUnparsed: true,
-    },
-  },
+  'strapi::public'
 ];

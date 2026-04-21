@@ -1,15 +1,29 @@
-import type { Context } from "koa"
+import { verifyToken } from "@clerk/backend"
 import { Webhook } from "svix"
 
 const { CLERK_WEBHOOK_SECRET } = process.env
 
 export default {
-    async register(ctx:Context){
+    async register(ctx,next){
         try {
+            const authHeader = ctx.request.header.authorization
+
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                 await next()
+            }
+            
+            const token = authHeader.split(' ')[1]
+            const payload = await verifyToken(
+                token, 
+                { secretKey: process.env.CLERK_SECRET_KEY }
+            )
+
+            const clerkIdToken = payload.sub
+            
             const headers = ctx.request.headers
             console.log("header",headers)
-            const payload = ctx.request.body[Symbol.for("unparsedBody")]
-            console.log("payload",payload)
+            const body = ctx.request.body[Symbol.for("unparsedBody")]
+            console.log("body",body)
             const wh = new Webhook(CLERK_WEBHOOK_SECRET)
             console.log("webhook",wh)
             
@@ -27,7 +41,7 @@ export default {
             let evt
             try {
                 evt = wh.verify(
-                    payload,
+                    body,
                     {
                         "svix-id": svix_id,
                         "svix-timestamp": svix_timestamp,
@@ -41,7 +55,9 @@ export default {
             }
     
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = evt.data
-    
+
+            if(clerkIdToken !== id) throw new Error("Incoherencia de ids");
+            
             console.log("data webhook", id, image_url, email_addresses, first_name, last_name, external_accounts )
             
             const provider = external_accounts.length && external_accounts[0].provider 
@@ -49,7 +65,7 @@ export default {
             const userName = email.split("@")[0]
             const type = evt.type
     
-            if(type === "session.created"){
+            if(type === "user.created"){
                 const role = await strapi
                     .query("plugin::users-permissions.role")
                     .findOne({ where: { type: "authenticated" } })
