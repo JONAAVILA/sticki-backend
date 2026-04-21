@@ -12,7 +12,7 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
         try {
             const headers = ctx.request.headers
             console.log("header",headers)
-            const body = ctx.request.body[Symbol.for("unparsedBody")]
+            const body = ctx.request.body
             console.log("body",body)
             const wh = new Webhook(CLERK_WEBHOOK_SECRET)
             console.log("webhook",wh)
