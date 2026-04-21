@@ -1,0 +1,14 @@
+
+{
+  "kind": "collectionType",
+  "collectionName": "user_mes",
+  "info": {
+    "singularName": "user-me",
+    "pluralName": "user-mes",
+    "displayName": "user-me"
+  },
+  "options": {
+    "comment": ""
+  },
+  "attributes": {}
+}

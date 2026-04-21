@@ -996,6 +996,34 @@ export interface ApiStoreStore extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiUserMeUserMe extends Struct.CollectionTypeSchema {
+  collectionName: 'user_mes';
+  info: {
+    displayName: 'user-me';
+    pluralName: 'user-mes';
+    singularName: 'user-me';
+  };
+  options: {
+    comment: '';
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-me.user-me'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1550,6 +1578,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::signup.signup': ApiSignupSignup;
       'api::store.store': ApiStoreStore;
+      'api::user-me.user-me': ApiUserMeUserMe;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
