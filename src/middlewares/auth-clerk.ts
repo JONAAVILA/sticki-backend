@@ -4,13 +4,15 @@
 
 import { verifyToken } from '@clerk/backend';
 import type { Core } from '@strapi/strapi';
+import api from '../../config/api';
 const { CLERK_SECRET_KEY } = process.env
 
 export default (config, { strapi }: { strapi: Core.Strapi }) => {
   return async (ctx, next) => {
     try {
+      console.log("path",ctx.path)
       if(ctx.path === '/api/auth/signup-webhook') return await next()
-      if(ctx.path.startsWith('/api/admin/')) return await next()
+      if(ctx.path.startsWith('/admin/') || ctx.path.startsWith('api/admin/')) return await next()
 
       strapi.log.info('In auth-clerk middleware.')
 
