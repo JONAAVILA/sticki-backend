@@ -13,7 +13,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
       if(ctx.path.startsWith('/admin/')) return await next()
         
       strapi.log.info('In auth-clerk middleware.')
-      const header = JSON.parse(ctx.request.header)
+      const header = ctx.get('Authorization');
       const authHeader = header.authorization
       console.log("Authheaders auth clerk",authHeader)
       console.log("header auth clerk",ctx.request.header)
