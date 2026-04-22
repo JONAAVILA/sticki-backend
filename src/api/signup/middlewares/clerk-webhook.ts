@@ -14,8 +14,11 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         strapi.log.info('In clerk-webhook middleware.');
 
         const headers = ctx.request.headers
+        console.log("webhookheader",headers)
         const body = JSON.stringify(ctx.request.body)
+        console.log("body",body)
         const wh = new Webhook(CLERK_WEBHOOK_SECRET)
+        console.log("wh",wh)
         
         const svix_id = headers["svix-id"];
         const svix_timestamp = headers["svix-timestamp"];
@@ -26,7 +29,6 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         }
 
         let evt
-
         evt = wh.verify(
             body,
             {
@@ -35,6 +37,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
                 "svix-signature": svix_signature,
             }
         )
+        console.log("evt",evt)
 
         ctx.state = {
           data:evt.data
