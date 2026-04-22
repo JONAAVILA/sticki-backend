@@ -7,14 +7,13 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreController('api::signup.signup',({strapi})=>({
     async receive(ctx){
         try {
-            const data = ctx.state.user.data
+            const { data,type } = ctx.state.user
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
             
             const provider = external_accounts.length && external_accounts[0].provider 
             const email = email_addresses[0].email_address
             const userName = email.split("@")[0]
-            const type = data.type
-            console.log("type",data.type)
+            console.log("type",type)
     
             if(type === 'user.created'){
                 console.log("entro por el type")
