@@ -10,6 +10,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
   return async (ctx, next) => {
     try {
       if(ctx.path === '/auth/signup-webhook') return await next()
+      if(ctx.path.startsWith('/admin/')) return await next()
         
       strapi.log.info('In auth-clerk middleware.')
       const authHeader = ctx.request.headers.authorization
