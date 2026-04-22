@@ -7,7 +7,7 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreController('api::signup.signup',({strapi})=>({
     async receive(ctx){
         try {
-            const data = ctx.state.data
+            const data = ctx.state.user.data
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
             
             const provider = external_accounts.length && external_accounts[0].provider 
