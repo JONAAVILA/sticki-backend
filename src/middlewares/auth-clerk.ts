@@ -14,7 +14,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         
       strapi.log.info('In auth-clerk middleware.')
       const authHeader = ctx.request.headers.authorization
-      console.log("headers auth clerk",Headers)
+      console.log("headers auth clerk",authHeader)
       if (!authHeader){
         return ctx.unauthorized("Invalid auth header")
       }
