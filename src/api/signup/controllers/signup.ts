@@ -9,13 +9,14 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
         try {
             const data = ctx.state.user.data
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
+            console.log("data",id, image_url, email_addresses, first_name, last_name, external_accounts )
             
             const provider = external_accounts.length && external_accounts[0].provider 
             const email = email_addresses[0].email_address
             const userName = email.split("@")[0]
             const type = data.type
     
-            if(type === "user.created"){
+            if(type === 'user.created'){
                 
                 const isAlreadyEmail = await strapi
                     .query('plugin::users-permissions.user')
@@ -31,27 +32,28 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
                 if(!role) {
                     throw new Error("No se encontró el rol 'authenticated' en Strapi");
                 }
+                try {
+                    await strapi
+                        .plugin("users-permissions")
+                        .service("user")
+                        .add({
+                            name:first_name,
+                            lastname:last_name,
+                            username:userName,
+                            email:email,
+                            clerkId:id,
+                            role:role.id,
+                            confirmed:true,
+                            provider:provider,
+                            avatar_url:image_url
+                        })
+                        
+                    return ctx.send({ message: 'Usuario creado' });
+                } catch (error) {
+                    console.log("error al crear usuario",error)
+                }
                 
-                await strapi
-                    .plugin("users-permissions")
-                    .service("user")
-                    .add({
-                        name:first_name,
-                        lastname:last_name,
-                        username:userName,
-                        email:email,
-                        clerkId:id,
-                        role:role.id,
-                        confirmed:true,
-                        provider:provider,
-                        avatar_url:image_url
-                    })
-                    
-                return ctx.send({ message: 'Usuario creado' });
-            }else{
-                console.log("método no autorizado")
-                return 
-            } 
+            }
         } catch (error) {
             console.log("error webhook",error)
             return ctx.send({ message: 'Evento ignorado' });
