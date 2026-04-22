@@ -9,31 +9,33 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
         try {
             const data = ctx.state.user.data
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
-            console.log("data",id, image_url, email_addresses, first_name, last_name, external_accounts )
             
             const provider = external_accounts.length && external_accounts[0].provider 
             const email = email_addresses[0].email_address
             const userName = email.split("@")[0]
             const type = data.type
+            console.log("type",data.type)
     
             if(type === 'user.created'){
-                
+                console.log("entro por el type")
                 const isAlreadyEmail = await strapi
                     .query('plugin::users-permissions.user')
                     .findOne({
                         where:{email:email}
                     })
+
+                console.log("isalready",isAlreadyEmail)
                 if(isAlreadyEmail) return ctx.badRequest("El usuario ya existe")
 
                 const role = await strapi
                     .query("plugin::users-permissions.role")
                     .findOne({ where: { type: "authenticated" } })
-    
+                console.log("role",role)
                 if(!role) {
                     throw new Error("No se encontró el rol 'authenticated' en Strapi");
                 }
                 try {
-                    await strapi
+                    const user = await strapi
                         .plugin("users-permissions")
                         .service("user")
                         .add({
@@ -47,6 +49,8 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
                             provider:provider,
                             avatar_url:image_url
                         })
+
+                        console.log("user created",user)
                         
                     return ctx.send({ message: 'Usuario creado' });
                 } catch (error) {
