@@ -24,22 +24,12 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         }
 
         const token = authHeader.split(' ')[1]    
-        console.log("token", token)  
         const session = await verifyToken(
             token,
             {secretKey:CLERK_SECRET_KEY}
         )
-        console.log("session", session)
 
-        const user = await strapi
-            .query('plugin::users-permissions.user')
-            .findOne({
-                where:{clerkId:session.sub}
-            })
-
-        console.log("user-middleware", user)
-
-        ctx.state.user = user
+        console.log("ctx user",ctx.state.user)
 
         await next()
     } catch (error) {

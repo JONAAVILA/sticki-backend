@@ -4,7 +4,7 @@
 
 import crypto from "crypto"
 
-export default {
+export default ({strapi})=>({
  getSignature: async (ctx) => {
     try {
       console.log("In getSignature action.")
@@ -42,4 +42,4 @@ export default {
       ctx.throw(500, "Error generando firma")
     }
   },
-};
+})
