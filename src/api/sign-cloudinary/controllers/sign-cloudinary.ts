@@ -7,7 +7,9 @@ import crypto from "crypto"
 export default {
  getSignature: async (ctx) => {
     try {
+      console.log("In getSignature action.")
       const user = ctx.state.user
+      console.log("user-sign", user)
 
       if (!user) {
         return ctx.unauthorized("No autenticado")
