@@ -40,7 +40,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
 
         ctx.state.user = user
 
-        return await next()
+        await next()
     } catch (error) {
         strapi.log.error(error)
         return ctx.unauthorized("Invalid token")

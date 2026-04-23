@@ -35,9 +35,10 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
             }
         )
 
-        ctx.state.user = {
-          data:evt.data,
-          type:evt.type
+        ctx.state = {
+            ...ctx.state,
+            data:evt.data,
+            type:evt.type
         }
         await next()
     } catch (error) {
