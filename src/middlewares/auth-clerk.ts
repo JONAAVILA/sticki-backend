@@ -14,6 +14,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         if(ctx.path.startsWith('/admin/') || ctx.path.startsWith('api/admin/')) return await next()
         if(ctx.path.startsWith('/content-manager/') || ctx.path.startsWith('api/content-manager/')) return await next()
         if(ctx.path.startsWith('/favicon.ico') || ctx.path.startsWith('api/favicon.ico')) return await next()
+        if(ctx.path.startsWith('/users-permissions/') || ctx.path.startsWith('api/users-permissions/')) return await next()
 
         strapi.log.info('In auth-clerk middleware.')
 
