@@ -10,13 +10,20 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
   return async (ctx, next) => {
     try {
         console.log("path",ctx.path)
-        if(ctx.path === '/api/auth/signup-webhook' || ctx.path === '/auth/login-webhook') return await next()
-        if(ctx.path.startsWith('/admin/') || ctx.path.startsWith('api/admin/')) return await next()
-        if(ctx.path.startsWith('/content-manager/') || ctx.path.startsWith('api/content-manager/')) return await next()
-        if(ctx.path.startsWith('/favicon.ico') || ctx.path.startsWith('api/favicon.ico')) return await next()
-        if(ctx.path.startsWith('/users-permissions/') || ctx.path.startsWith('api/users-permissions/')) return await next()
-
         strapi.log.info('In auth-clerk middleware.')
+
+        if(
+            ctx.path === '/api/auth/signup-webhook' || 
+            ctx.path === '/auth/login-webhook' ||
+            ctx.path.startsWith('/admin/') ||
+            ctx.path.startsWith('api/admin/') ||
+            ctx.path.startsWith('/content-manager/') ||
+            ctx.path.startsWith('api/content-manager/') ||
+            ctx.path.startsWith('/favicon.ico') ||
+            ctx.path.startsWith('api/favicon.ico') ||
+            ctx.path.startsWith('/users-permissions/') ||
+            ctx.path.startsWith('api/users-permissions/')
+        ) return await next()
 
         const authHeader = ctx.request.headers['authorization']
         if (!authHeader){
@@ -28,8 +35,13 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
             token,
             {secretKey:CLERK_SECRET_KEY}
         )
-        console.log("sessionToken",token)
-        console.log("session",session)
+
+        const user = await strapi
+          .query('plugin::users-permissions.user')
+          .findOne({
+              where:{clerkId:session.sub}
+          })
+        if(!user) ctx.unauthorized("Invalid user")
         
         ctx.state = {
           clerkId:session.sub

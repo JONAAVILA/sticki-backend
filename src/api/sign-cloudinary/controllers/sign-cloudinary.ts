@@ -8,17 +8,19 @@ export default ({strapi})=>({
  getSignature: async (ctx) => {
     try {
       console.log("In getSignature action.")
-      const user = ctx.state.user
-      console.log("user-sign", user)
+      const { clerkId } = ctx.state
 
-      if (!user) {
-        return ctx.unauthorized("No autenticado")
-      }
+      const user = await strapi
+        .query('plugin::users-permissions.user')
+        .findOne({
+            where:{clerkId:clerkId}
+        })
+      const { id } = user
 
       const timestamp = Math.round(Date.now() / 1000)
 
-      const folder = `avatars/${user.id}`
-      const public_id = "avatar"
+      const folder = `${id}/images/avatar`
+      const public_id = `avatar-${id}`
       const overwrite = "true"
 
       const stringToSign = `folder=${folder}&overwrite=${overwrite}&public_id=${public_id}&timestamp=${timestamp}`
