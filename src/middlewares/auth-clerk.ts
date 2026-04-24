@@ -30,23 +30,9 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         )
         console.log("sessionToken",token)
         console.log("session",session)
-
-        const user = await strapi
-        .query('plugin::users-permissions.user')
-        .findOne({
-          where:{clerkId:session.sub}
-        })
-        console.log("user",user)
-        console.log("ctx user",ctx.state.user)
-        console.log("ctx state",ctx.state)
         
-        if(!user) {
-          return ctx.notFound("User not found")
-        }
-
-        ctx.state.user = {
-          ...ctx.state.user,
-          user
+        ctx.state = {
+          clerkId:session.sub
         }
         await next()
     } catch (error) {
