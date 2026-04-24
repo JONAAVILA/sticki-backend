@@ -8,7 +8,7 @@ export default ({strapi})=>({
   async getSignature(ctx,next){
     try {
       console.log("In getSignature action.")
-      const { clerkId } = ctx.state
+      const { clerkId } = ctx.state.user
       console.log("signature clerkid",clerkId)
       const user = await strapi
         .query('plugin::users-permissions.user')
@@ -31,7 +31,7 @@ export default ({strapi})=>({
         .update(stringToSign + process.env.CLOUDINARY_SECRET)
         .digest("hex")
 
-      ctx.send({
+      return ctx.send({
         timestamp,
         signature,
         folder,

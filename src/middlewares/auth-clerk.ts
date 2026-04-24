@@ -44,15 +44,11 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
               where:{clerkId:session.sub}
           })
         console.log("user",user)
-        if(!user) ctx.unauthorized("Invalid user")
+        ctx.state.user = user
         console.log("state",ctx.state)
-        console.log("req",ctx)
-        ctx.state = {
-          clerkId:session.sub
-        }
         await next()
     } catch (error) {
-        strapi.log.error(error)
+        console.log(error)
         return ctx.unauthorized("Invalid token")
     }
   };

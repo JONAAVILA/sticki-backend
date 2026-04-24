@@ -44,6 +44,7 @@ export default factories.createCoreController('api::signup.signup',({strapi})=>(
                         email:email,
                         clerkId:id,
                         role:role.id,
+                        locale:'es-AR',
                         confirmed:true,
                         provider:provider,
                         avatar_url:image_url
