@@ -5,7 +5,7 @@
 import crypto from "crypto"
 
 export default ({strapi})=>({
- getSignature: async (ctx) => {
+  async getSignature(ctx,next){
     try {
       console.log("In getSignature action.")
       const { clerkId } = ctx.state

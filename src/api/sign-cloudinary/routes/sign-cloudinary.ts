@@ -4,7 +4,9 @@ export default {
       method: 'GET',
       path: '/sign-cloudinary',
       handler: 'sign-cloudinary.getSignature',
-      config:{}
+      config: {
+        auth: {},
+      },
     },
   ],
 };
