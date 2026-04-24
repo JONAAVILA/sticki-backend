@@ -7,7 +7,7 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreController('api::user-me.user-me',({strapi})=>({
     async getUser(ctx){
         try {
-            const clerkId = await ctx.state.clerkId
+            const { clerkId } = await ctx.state.user
 
             const user = await strapi
                 .query('plugin::users-permissions.user')

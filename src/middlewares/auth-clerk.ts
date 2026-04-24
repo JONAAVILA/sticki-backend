@@ -44,8 +44,15 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
               where:{clerkId:session.sub}
           })
         console.log("user",user)
+
         ctx.state.user = user;
-        return await next()
+        ctx.state.isAuthenticated = true;
+        ctx.state.auth = {
+            strategy: { name: 'users-permissions' },
+            credentials: user,
+            ability: null,
+        };
+        return await next();
     } catch (error) {
         console.log(error)
         return ctx.unauthorized("Invalid token")
