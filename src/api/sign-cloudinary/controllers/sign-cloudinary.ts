@@ -9,12 +9,13 @@ export default ({strapi})=>({
     try {
       console.log("In getSignature action.")
       const { clerkId } = ctx.state
-
+      console.log("signature clerkid",clerkId)
       const user = await strapi
         .query('plugin::users-permissions.user')
         .findOne({
             where:{clerkId:clerkId}
         })
+        console.log("user-signature",user)
       const { id } = user
 
       const timestamp = Math.round(Date.now() / 1000)

@@ -14,7 +14,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
 
         if(
             ctx.path === '/api/auth/signup-webhook' || 
-            ctx.path === '/auth/login-webhook' ||
+            ctx.path === '/auth/signup-webhook' ||
             ctx.path.startsWith('/admin/') ||
             ctx.path.startsWith('api/admin/') ||
             ctx.path.startsWith('/content-manager/') ||
