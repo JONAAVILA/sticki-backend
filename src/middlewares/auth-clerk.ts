@@ -43,6 +43,11 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         if(!user) {
           return ctx.notFound("User not found")
         }
+
+        ctx.state.user = {
+          ...ctx.state.user,
+          user
+        }
         await next()
     } catch (error) {
         strapi.log.error(error)
