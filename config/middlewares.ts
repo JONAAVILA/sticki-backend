@@ -1,5 +1,4 @@
 export default [
-  'global::auth-clerk',
   'strapi::logger',
   'strapi::errors',
   'strapi::cors',
@@ -10,4 +9,5 @@ export default [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  'global::auth-clerk'
 ];
