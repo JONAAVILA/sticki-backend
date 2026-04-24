@@ -50,7 +50,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         const permissions = await strapi
           .plugin('users-permissions')
           .service('permission')
-          .findRolePermissions({ id: user.role.id });
+          .findRolePermissions(user.role.id)
 
         const formattedPermissions = permissions.map(
           strapi.plugin('users-permissions').service('permission').toContentAPIPermission
