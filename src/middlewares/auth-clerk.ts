@@ -45,7 +45,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
           })
         console.log("user",user)
         ctx.state.user = user;
-        return { authenticated: true, credentials: user };
+        return await next()
     } catch (error) {
         console.log(error)
         return ctx.unauthorized("Invalid token")
