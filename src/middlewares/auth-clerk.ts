@@ -1,3 +1,4 @@
+
 /**
  * `auth-clerk` middleware
  */
@@ -45,13 +46,25 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
           })
         console.log("user",user)
 
+        const permissions = await strapi
+          .plugin('users-permissions')
+          .service('permission')
+          .findRolePermissions({ id: user.role.id });
+
+        const formattedPermissions = permissions.map(
+          strapi.plugin('users-permissions').service('permission').toContentAPIPermission
+        );
+
+        const ability = await strapi.contentAPI.permissions.engine.generateAbility(formattedPermissions);
+
         ctx.state.user = user;
         ctx.state.isAuthenticated = true;
         ctx.state.auth = {
-            strategy: { name: 'users-permissions' },
-            credentials: user,
-            ability: null,
+          strategy: { name: 'users-permissions' },
+          credentials: user,
+          ability, // <-- pass the real ability
         };
+
         return await next();
     } catch (error) {
         console.log(error)
