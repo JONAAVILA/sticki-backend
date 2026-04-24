@@ -28,16 +28,18 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
             token,
             {secretKey:CLERK_SECRET_KEY}
         )
+        strapi.log.info("session",session)
+        strapi.log.info("sessiontoken",token)
         const user = await strapi
-          .query('plugin::users-permissions.user')
-          .findOne({
-              where:{clerkId:session.sub}
-          })
-
+        .query('plugin::users-permissions.user')
+        .findOne({
+          where:{clerkId:session.sub}
+        })
+        console.log("ctx user",user)
+        
         if(!user) {
           return ctx.notFound("User not found")
         }
-        console.log("ctx user",user)
         await next()
     } catch (error) {
         strapi.log.error(error)
