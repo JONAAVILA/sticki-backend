@@ -44,9 +44,8 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
               where:{clerkId:session.sub}
           })
         console.log("user",user)
-        ctx.state.user = user
-        console.log("state",ctx.state)
-        await next()
+        ctx.state.user = user;
+        return { authenticated: true, credentials: user };
     } catch (error) {
         console.log(error)
         return ctx.unauthorized("Invalid token")
