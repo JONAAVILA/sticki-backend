@@ -18,5 +18,14 @@ export default {
         auth: false
      },
     },
+    {
+     method: 'POST',
+     path: '/users-me/signup',
+     handler: 'users-me.signup',
+     config: {
+        middlewares: ['api::users-me.signup-webhook-middleware'],
+        auth: false
+     },
+    },
   ],
 };
