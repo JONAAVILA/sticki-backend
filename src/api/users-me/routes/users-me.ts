@@ -27,5 +27,14 @@ export default {
         auth: false
      },
     },
+    {
+     method: 'GET',
+     path: '/users-me/signature',
+     handler: 'users-me.getSignature',
+     config: {
+        middlewares: ['api::users-me.user-me-middleware'],
+        auth: false
+     },
+    },
   ],
 };

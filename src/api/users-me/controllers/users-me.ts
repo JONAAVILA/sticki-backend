@@ -1,6 +1,7 @@
 /**
  * A set of functions called "actions" for `users-me`
  */
+import crypto from "crypto"
 
 export default {
     async getUser(ctx,next){
@@ -15,7 +16,7 @@ export default {
     async upload(ctx){
         try {
             const body = await ctx.request.body
-            const { avatar_url } = body
+            const { prop,value } = body
             const { documentId } = await ctx.state.user
 
             await strapi
@@ -23,7 +24,7 @@ export default {
                 .update({
                     documentId:documentId,
                     data:{
-                        avatar_url:avatar_url
+                        [prop]:value
                     }
                 })
 
@@ -83,5 +84,43 @@ export default {
             strapi.log.error("user-me-signup",error)
             return ctx.unauthorized("Usuario desconocido")    
         }
-    }
+    },
+    async getSignature(ctx,next){
+        try {
+            const { clerkId } = ctx.state.user
+
+            const user = await strapi
+                .query('plugin::users-permissions.user')
+                .findOne({
+                    where:{clerkId:clerkId}
+                })
+            const { id } = user
+
+            const timestamp = Math.round(Date.now() / 1000)
+
+            const folder = `${id}/avatar`
+            const public_id = `avatar-${id}`
+            const overwrite = "true"
+
+            const stringToSign = `folder=${folder}&overwrite=${overwrite}&public_id=${public_id}&timestamp=${timestamp}`
+
+            const signature = crypto
+                .createHash("sha1")
+                .update(stringToSign + process.env.CLOUDINARY_SECRET)
+                .digest("hex")
+
+            return ctx.send({
+                timestamp,
+                signature,
+                folder,
+                public_id,
+                overwrite,
+                cloudName: process.env.CLOUDINARY_NAME,
+                apiKey: process.env.CLOUDINARY_KEY,
+        })
+        } catch (err) {
+        console.log(err)
+            ctx.throw(500, "Error generando firma")
+        }
+    },
 };

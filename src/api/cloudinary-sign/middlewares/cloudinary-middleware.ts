@@ -22,15 +22,12 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
             token,
             {secretKey:CLERK_SECRET_KEY}
         )
-        console.log("session",session)
-        console.log("sessionTOKEN",token)
 
         const user = await strapi
           .query('plugin::users-permissions.user')
           .findOne({
               where:{clerkId:session.sub}
           })
-        console.log("user",user)
 
         ctx.state.user = user
         await next();
