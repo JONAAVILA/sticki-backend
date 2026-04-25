@@ -4,6 +4,7 @@
 import crypto from "crypto"
 
 export default {
+    // user data
     async getUser(ctx,next){
         try {
             const user = await ctx.state.user
@@ -119,8 +120,26 @@ export default {
                 apiKey: process.env.CLOUDINARY_KEY,
         })
         } catch (err) {
-        console.log(err)
+            console.log(err)
             ctx.throw(500, "Error generando firma")
         }
     },
+    // products and cateogories
+    async categoryCreate(ctx,next){
+        try {
+            const { name,description,store } = ctx.request.body
+
+            await strapi.documents('api::category.category').create({
+                data:{
+                    name,
+                    description,
+                    store
+                }
+            })
+
+            ctx.send(`La categoría ${name} se creó con éxito`)
+        } catch (error) {
+            ctx.throw(500, "Error al crear categoría")
+        }
+    }
 };
