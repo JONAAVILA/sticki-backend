@@ -1,11 +1,16 @@
 /**
- * user-me controller
+ * A set of functions called "actions" for `users-me`
  */
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::user-me.user-me',({strapi})=>({
-    async getUser(ctx){
+export default {
+  // exampleAction: async (ctx, next) => {
+  //   try {
+  //     ctx.body = 'ok';
+  //   } catch (err) {
+  //     ctx.body = err;
+  //   }
+  // }
+    async getUser(ctx,next){
         try {
             const { clerkId } = await ctx.state.user
 
@@ -23,7 +28,9 @@ export default factories.createCoreController('api::user-me.user-me',({strapi})=
     },
     async upload(ctx){
         try {
-            const { avatarUrl } = await ctx.request.body
+            const body = await ctx.request.body
+            console.log("body",body)
+            const { avatar_url } = body
             const { clerkId } = await ctx.state.user
 
             const user = await strapi
@@ -32,17 +39,21 @@ export default factories.createCoreController('api::user-me.user-me',({strapi})=
                     where:{clerkId:clerkId}
                 })
 
-            await strapi
+            console.log("user upload",user)
+
+            const up = await strapi
                 .documents('plugin::users-permissions.user')
                 .update({
                     documentId:user.documentId,
-                    avatarUrl:avatarUrl
+                    data:{
+                        avatar_url:avatar_url
+                    }
                 })
-
-            return ctx.send.status(200)
+            console.log("up",up)
+            return
         } catch (error) {
             strapi.log.error("user-me",error)
             return ctx.unauthorized("Usuario desconocido")        
         }
     }
-}));
+};

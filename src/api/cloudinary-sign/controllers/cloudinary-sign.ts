@@ -1,11 +1,17 @@
 /**
- * A set of functions called "actions" for `sign-cloudinary`
+ * A set of functions called "actions" for `cloudinary-sign`
  */
-
 import crypto from "crypto"
 
-export default ({strapi})=>({
-  async getSignature(ctx){
+export default {
+  // exampleAction: async (ctx, next) => {
+  //   try {
+  //     ctx.body = 'ok';
+  //   } catch (err) {
+  //     ctx.body = err;
+  //   }
+  // }
+  async getSignature(ctx,next){
     try {
       console.log("In getSignature action.")
       const { clerkId } = ctx.state.user
@@ -45,4 +51,4 @@ export default ({strapi})=>({
       ctx.throw(500, "Error generando firma")
     }
   },
-})
+};
