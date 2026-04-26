@@ -45,14 +45,14 @@ export default {
             auth: false
          },
       },
-      {
-         method: 'GET',
-         path: '/users-me/category',
-         handler: 'users-me.categories',
-         config: {
-            middlewares: ['api::users-me.user-me-middleware'],
-            auth: false
-         },
-      },
+      // {
+      //    method: 'GET',
+      //    path: '/users-me/category',
+      //    handler: 'users-me.categories',
+      //    config: {
+      //       middlewares: ['api::users-me.user-me-middleware'],
+      //       auth: false
+      //    },
+      // },
    ],
 };
