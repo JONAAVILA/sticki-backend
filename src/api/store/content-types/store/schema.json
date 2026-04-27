@@ -44,11 +44,10 @@
       "target": "api::order.order",
       "mappedBy": "store"
     },
-    "categories": {
+    "store_categories": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::category.category",
-      "mappedBy": "store"
+      "target": "api::store-category.store-category"
     }
   }
 }

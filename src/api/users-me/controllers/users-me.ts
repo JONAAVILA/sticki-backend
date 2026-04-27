@@ -129,13 +129,13 @@ export default {
         try {
             const { name,description,store } = ctx.request.body
 
-            await strapi.documents('api::category.category').create({
-                data:{
-                    name,
-                    description,
-                    store
-                }
-            })
+            // await strapi.documents('api::category.category').create({
+            //     data:{
+            //         name,
+            //         description,
+            //         store
+            //     }
+            // })
 
             ctx.send(`La categoría ${name} se creó con éxito`)
         } catch (error) {

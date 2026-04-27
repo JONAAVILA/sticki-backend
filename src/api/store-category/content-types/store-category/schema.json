@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "store_categories",
   "info": {
-    "singularName": "category",
-    "pluralName": "categories",
-    "displayName": "category"
+    "singularName": "store-category",
+    "pluralName": "store-categories",
+    "displayName": "store-category"
   },
   "options": {
     "draftAndPublish": true
@@ -22,16 +22,20 @@
           "localized": true
         }
       },
-      "required": true
+      "maxLength": 100,
+      "required": true,
+      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]+$"
     },
     "description": {
-      "type": "text",
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "maxLength": 225,
+      "required": true,
+      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9. ]+$"
     }
   }
 }
