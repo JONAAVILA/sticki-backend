@@ -39,7 +39,7 @@ export default {
       {
          method: 'POST',
          path: '/users-me/category/create',
-         handler: 'users-me.categoryCreate',
+         handler: 'users-me.productCategoryCreate',
          config: {
             middlewares: ['api::users-me.user-me-middleware'],
             auth: false

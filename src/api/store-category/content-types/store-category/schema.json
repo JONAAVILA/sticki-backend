@@ -35,7 +35,7 @@
       },
       "maxLength": 225,
       "required": true,
-      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9. ]+$"
+      "regex": "^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9., ]+$"
     }
   }
 }

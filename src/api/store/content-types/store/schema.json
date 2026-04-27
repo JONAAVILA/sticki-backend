@@ -48,6 +48,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::store-category.store-category"
+    },
+    "product_categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-category.product-category",
+      "mappedBy": "store"
     }
   }
 }
