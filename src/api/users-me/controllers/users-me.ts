@@ -140,7 +140,8 @@ export default {
                 data:{
                     name,
                     description,
-                    store:store.id
+                    store:store.id,
+                    publishedAt: new Date()
                 }
             })
 
