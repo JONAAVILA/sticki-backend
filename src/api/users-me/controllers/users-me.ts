@@ -127,13 +127,20 @@ export default {
     // products and cateogories
     async productCategoryCreate(ctx,next){
         try {
-            const { name,description,store } = ctx.request.body
+            const { name,description } = ctx.request.body
+            const { documentId } = ctx.state.user
+
+            const store = await strapi
+                .query('api::store.store')
+                .findOne({
+                    where:{ owner:documentId }
+                })
 
             await strapi.documents('api::product-category.product-category').create({
                 data:{
                     name,
                     description,
-                    store
+                    store:store.id
                 }
             })
 
@@ -141,6 +148,7 @@ export default {
                 data: `La categoría ${name} se creó con éxito`,
             }
         } catch (error) {
+            console.log("error category",error)
             ctx.throw(500, "Error al crear categoría")
         }
     }

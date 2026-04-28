@@ -27,12 +27,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
         const user = await strapi
           .query('plugin::users-permissions.user')
           .findOne({
-              where:{clerkId:session.sub},
-              populate: {
-                store: {
-                  populate: ['categories']
-                },
-              },
+              where:{clerkId:session.sub}
           })
 
         ctx.state.user = user
