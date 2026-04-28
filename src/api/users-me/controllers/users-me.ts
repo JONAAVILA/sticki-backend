@@ -137,7 +137,9 @@ export default {
                 }
             })
 
-            ctx.send({message:`La categoría ${name} se creó con éxito`})
+            ctx.body = {
+                data: `La categoría ${name} se creó con éxito`,
+            }
         } catch (error) {
             ctx.throw(500, "Error al crear categoría")
         }
