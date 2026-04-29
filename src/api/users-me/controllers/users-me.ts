@@ -124,7 +124,7 @@ export default {
             ctx.throw(500, "Error generando firma")
         }
     },
-    // products and cateogories
+    //product-cateogories
     async productCategoryCreate(ctx,next){
         try {
             const { name,description } = ctx.request.body
@@ -145,12 +145,29 @@ export default {
                 }
             })
 
-            ctx.body = {
+            return ctx.body = {
                 data: `La categoría ${name} se creó con éxito`,
             }
         } catch (error) {
             console.log("error category",error)
             ctx.throw(500, "Error al crear categoría")
+        }
+    },
+    async getProductCategories(ctx,next){
+        try {
+            const { documentId } = ctx.state.user
+            const store = await strapi
+                .query('api::store.store')
+                .findOne({
+                    where:{ owner:documentId },
+                    populate:['categories']
+                })
+            return ctx.send({
+                data:store.categories
+            })
+        } catch (error) {
+            console.log("error category",error)
+            ctx.throw(500, "Error al optener las categorías")
         }
     }
 };
