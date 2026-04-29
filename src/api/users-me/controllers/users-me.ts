@@ -42,7 +42,7 @@ export default {
             console.log("type",type)
             const { id, image_url, email_addresses, first_name, last_name, external_accounts } = data
             
-            const provider = external_accounts.length && external_accounts[0].provider 
+            const provider = external_accounts[0].provider ? external_accounts[0].provider : "locale"
             const email = email_addresses[0].email_address
             const userName = email.split("@")[0]
     
