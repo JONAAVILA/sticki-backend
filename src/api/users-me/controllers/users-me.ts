@@ -147,7 +147,7 @@ export default {
     async locationsCreate(ctx,next){
         try {
             const { documentId } = ctx.state.user
-            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions,isDefault } = ctx.request.body
+            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions } = ctx.request.body
 
             await strapi
                 .documents('api::location-user.location-user')
