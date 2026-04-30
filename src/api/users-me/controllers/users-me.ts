@@ -170,6 +170,10 @@ export default {
                         users_permissions_user:documentId
                     }
                 })
+            
+            return ctx.send({
+                data: "La dirección se creó con éxito",
+            })
         } catch (error) {
             console.log(error)
             ctx.throw(500, "Error al crear direcciones")
