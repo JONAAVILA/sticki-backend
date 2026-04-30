@@ -144,6 +144,37 @@ export default {
             ctx.throw(500, "Error al buscar direcciones")
         }
     },
+    async locationsCreate(ctx,next){
+        try {
+            const { documentId } = ctx.state.user
+            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions,isDefault } = ctx.request.body
+
+            await strapi
+                .documents('api::location-user.location-user')
+                .create({
+                    data:{
+                        street,
+                        region,
+                        place,
+                        zipCode,
+                        country,
+                        door,
+                        floor,
+                        number,
+                        lat,
+                        long,
+                        typeAddress,
+                        instructions,
+                        isDefault:false,
+                        publishedAt: new Date(),
+                        users_permissions_user:documentId
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+            ctx.throw(500, "Error al crear direcciones")
+        }
+    },
     //product-cateogories
     async productCategoryCreate(ctx,next){
         try {
@@ -156,14 +187,16 @@ export default {
                     where:{ owner:documentId }
                 })
 
-            await strapi.documents('api::product-category.product-category').create({
-                data:{
-                    name,
-                    description,
-                    store:store.id,
-                    publishedAt: new Date()
-                }
-            })
+            await strapi
+                .documents('api::product-category.product-category')
+                .create({
+                    data:{
+                        name,
+                        description,
+                        store:store.id,
+                        publishedAt: new Date()
+                    }
+                })
 
             return ctx.send({
                 data: `La categoría ${name} se creó con éxito`,

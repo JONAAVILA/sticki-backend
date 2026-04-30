@@ -47,6 +47,15 @@ export default {
       },
       {
          method: 'POST',
+         path: '/users-me/locations/create',
+         handler: 'users-me.locationsCreate',
+         config: {
+            middlewares: ['api::users-me.user-me-middleware'],
+            auth: false
+         },
+      },
+      {
+         method: 'POST',
          path: '/users-me/categories/create',
          handler: 'users-me.productCategoryCreate',
          config: {
