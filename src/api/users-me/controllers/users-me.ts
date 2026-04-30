@@ -124,6 +124,26 @@ export default {
             ctx.throw(500, "Error generando firma")
         }
     },
+    async getLocations(ctx,next){
+        try {
+            const { documentId } = ctx.state.user
+
+            const locations = await strapi
+                .query('api::location-user.location-user')
+                .findMany({
+                    where:{
+                        users_permissions_user:documentId
+                    }
+                })
+
+            return ctx.send({
+                data:locations
+            })
+        } catch (error) {
+            console.log(error)
+            ctx.throw(500, "Error al buscar direcciones")
+        }
+    },
     //product-cateogories
     async productCategoryCreate(ctx,next){
         try {
@@ -145,9 +165,9 @@ export default {
                 }
             })
 
-            return ctx.body = {
+            return ctx.send({
                 data: `La categoría ${name} se creó con éxito`,
-            }
+            })
         } catch (error) {
             console.log("error category",error)
             ctx.throw(500, "Error al crear categoría")

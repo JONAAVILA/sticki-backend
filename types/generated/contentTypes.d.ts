@@ -870,7 +870,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMax<
         {
           max: 100;
-          min: 1;
+          min: 0;
         },
         number
       > &
