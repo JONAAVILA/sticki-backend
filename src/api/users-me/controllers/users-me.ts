@@ -148,6 +148,9 @@ export default {
         try {
             const { documentId } = ctx.state.user
             const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions } = ctx.request.body
+            console.log("locationsParams",street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions)
+
+            if(!street || !region || !place || !zipCode || !country || !number || !lat || !long) return ctx.throw("Datos faltantes")
 
             await strapi
                 .documents('api::location-user.location-user')
