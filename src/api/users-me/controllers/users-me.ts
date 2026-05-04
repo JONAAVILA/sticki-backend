@@ -7,7 +7,7 @@ export default {
     // user data
     async getUser(ctx,next){
         try {
-            const user = await ctx.state.user
+            const user = ctx.state.user
             return ctx.send(user)
         } catch (error) {
             strapi.log.error("user-me",error)
@@ -16,9 +16,9 @@ export default {
     },
     async upload(ctx){
         try {
-            const body = await ctx.request.body
+            const body = ctx.request.body
             const { prop,value } = body
-            const { documentId } = await ctx.state.user
+            const { documentId } = ctx.state.user
 
             await strapi
                 .documents('plugin::users-permissions.user')

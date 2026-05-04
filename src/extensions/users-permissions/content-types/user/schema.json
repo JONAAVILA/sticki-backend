@@ -99,7 +99,7 @@
     },
     "avatar_url": {
       "type": "string",
-      "regex": "^https:\\/\\/([a-zA-Z0-9-]+\\.)*cloudinary\\.com(\\/.*)?$"
+      "regex": "^https:\\/\\/([a-zA-Z0-9-]+\\.)*(cloudinary\\.com|clerk\\.com)(\\/.*)?$"
     },
     "store": {
       "type": "relation",
