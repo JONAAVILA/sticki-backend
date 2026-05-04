@@ -24,11 +24,18 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
             {secretKey:CLERK_SECRET_KEY}
         )
 
+        if (!session || !session.sub) return ctx.unauthorized("Invalid Clerk Session")
+
         const user = await strapi
           .query('plugin::users-permissions.user')
           .findOne({
               where:{clerkId:session.sub}
           })
+
+        if (!user) {
+          strapi.log.warn(`Usuario Clerk ${session.sub} no encontrado en Strapi. Deteniendo petición.`);
+          return ctx.unauthorized("User sync error - Please sign up first");
+        }
 
         ctx.state.user = user
         await next();
