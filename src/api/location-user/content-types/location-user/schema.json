@@ -85,6 +85,11 @@
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   }
 }

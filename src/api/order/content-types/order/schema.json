@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "statusOrder": {
+    "status_order": {
       "type": "enumeration",
       "pluginOptions": {
         "i18n": {
@@ -29,7 +29,8 @@
         "approved",
         "onTheWay",
         "dispatched",
-        "filled"
+        "filled",
+        "archived"
       ]
     },
     "total": {

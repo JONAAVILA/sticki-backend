@@ -51,7 +51,9 @@ export default {
                 const isAlreadyEmail = await strapi
                     .query('plugin::users-permissions.user')
                     .findOne({
-                        where:{email:email}
+                        where:{
+                            email:email
+                        }
                     })
 
                 if(isAlreadyEmail) return ctx.badRequest("El usuario ya existe")
@@ -72,7 +74,7 @@ export default {
                         lastname:last_name,
                         username:userName,
                         email:email,
-                        clerkId:id,
+                        clerk_id:id,
                         role:role.id,
                         confirmed:true,
                         provider:provider,
@@ -86,16 +88,10 @@ export default {
             return ctx.unauthorized("Usuario desconocido")    
         }
     },
+    // sign cloudinary
     async getSignature(ctx,next){
         try {
-            const { clerkId } = ctx.state.user
-
-            const user = await strapi
-                .query('plugin::users-permissions.user')
-                .findOne({
-                    where:{clerkId:clerkId}
-                })
-            const { id } = user
+            const { clerkId,id } = ctx.state.user
 
             const timestamp = Math.round(Date.now() / 1000)
 
@@ -124,6 +120,7 @@ export default {
             ctx.throw(500, "Error generando firma")
         }
     },
+    // locations
     async getLocations(ctx,next){
         try {
             const { id } = ctx.state.user
@@ -134,7 +131,8 @@ export default {
                     filters:{
                         users_permissions_user:{
                             id:id
-                        }
+                        },
+                        is_active:true
                     }
                 })
 
@@ -150,8 +148,20 @@ export default {
         try {
             const { documentId } = ctx.state.user
             const { data } = ctx.request.body
-            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions } = data
-            console.log("locationsParams",street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions)
+            const { 
+                street,
+                region,
+                place,
+                zipCode,
+                country,
+                door,
+                floor,
+                number,
+                lat,
+                long,
+                typeAddress,
+                instructions 
+            } = data
 
             if(
                 !street ||
@@ -182,7 +192,8 @@ export default {
                         instructions,
                         isDefault:false,
                         publishedAt: new Date(),
-                        users_permissions_user:documentId
+                        users_permissions_user:documentId,
+                        is_active:true
                     }
                 })
             
@@ -194,10 +205,27 @@ export default {
             ctx.throw(500, "Error al crear direcciones")
         }
     },
+    async deleteLocation(ctx,next){
+        try {
+            const { id } = ctx.params
+
+            // await strapi
+            //     .documents('api::location-user.location-user')
+            //     .update({
+            //         documentId:id,
+            //         data:{
+            //             is_active:false
+            //         }
+            //     })
+        } catch (error) {
+            console.log(error)
+            ctx.throw(500, "Error al eliminar direcció")
+        }
+    },
     //product-cateogories
     async productCategoryCreate(ctx,next){
         try {
-            const { name,description } = ctx.request.body
+            const { name,description,cover,galery } = ctx.request.body
             const { documentId } = ctx.state.user
 
             const store = await strapi
@@ -210,10 +238,13 @@ export default {
                 .documents('api::product-category.product-category')
                 .create({
                     data:{
+                        cover,
+                        galery,
                         name,
                         description,
                         store:store.id,
-                        publishedAt: new Date()
+                        publishedAt: new Date(),
+                        is_active:true
                     }
                 })
 

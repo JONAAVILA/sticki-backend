@@ -27,6 +27,7 @@ export default {
             auth: false
          },
       },
+      // sign cloudinary
       {
          method: 'GET',
          path: '/users-me/signature',
@@ -36,6 +37,7 @@ export default {
             auth: false
          },
       },
+      // locations
       {
          method: 'GET',
          path: '/users-me/locations',
@@ -54,6 +56,16 @@ export default {
             auth: false
          },
       },
+      {
+         method: 'PUT',
+         path: '/users-me/locations/:id',
+         handler: 'users-me.deleteLocation',
+         config: {
+            middlewares: ['api::users-me.user-me-middleware'],
+            auth: false
+         },
+      },
+      // product categories
       {
          method: 'POST',
          path: '/users-me/categories/create',

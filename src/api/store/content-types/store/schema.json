@@ -15,6 +15,25 @@
     }
   },
   "attributes": {
+    "cover_logo": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "regex": "^https:\\/\\/([a-zA-Z0-9-]+\\.)*(cloudinary\\.com)(\\/.*)?$"
+    },
+    "galery": {
+      "type": "json",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
     "name": {
       "type": "string",
       "pluginOptions": {
@@ -54,6 +73,15 @@
       "relation": "oneToMany",
       "target": "api::product-category.product-category",
       "mappedBy": "store"
+    },
+    "is_active": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": true
     }
   }
 }

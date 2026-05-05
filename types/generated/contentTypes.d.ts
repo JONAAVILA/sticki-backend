@@ -470,51 +470,6 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
-  info: {
-    displayName: 'category';
-    pluralName: 'categories';
-    singularName: 'category';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    >;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiCheckPaymentCheckPayment
   extends Struct.CollectionTypeSchema {
   collectionName: 'check_payments';
@@ -606,6 +561,9 @@ export interface ApiLocationUserLocationUser
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
+    is_active: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     isDefault: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
@@ -733,8 +691,8 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       }>;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
-    statusOrder: Schema.Attribute.Enumeration<
-      ['pending', 'approved', 'onTheWay', 'dispatched', 'filled']
+    status_order: Schema.Attribute.Enumeration<
+      ['pending', 'approved', 'onTheWay', 'dispatched', 'filled', 'archived']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -805,6 +763,13 @@ export interface ApiProductCategoryProductCategory
     };
   };
   attributes: {
+    cover: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -818,6 +783,20 @@ export interface ApiProductCategoryProductCategory
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 225;
       }>;
+    galery: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    is_active: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -857,10 +836,17 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    cover: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    deliveryTime: Schema.Attribute.Integer &
+    delivery_time: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -901,12 +887,19 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0>;
+    galery: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::product.product'
     >;
-    minOrder: Schema.Attribute.BigInteger &
+    min_order: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -988,6 +981,13 @@ export interface ApiStoreCategoryStoreCategory
     };
   };
   attributes: {
+    cover: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1001,6 +1001,13 @@ export interface ApiStoreCategoryStoreCategory
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 225;
       }>;
+    is_active: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1039,9 +1046,30 @@ export interface ApiStoreStore extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    cover_logo: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    galery: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    is_active: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::store.store'>;
     name: Schema.Attribute.String &
@@ -1541,7 +1569,7 @@ export interface PluginUsersPermissionsUser
         minLength: 9;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    clerkId: Schema.Attribute.String &
+    clerk_id: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
@@ -1557,6 +1585,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     lastname: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 40;
@@ -1619,7 +1648,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::cart.cart': ApiCartCart;
-      'api::category.category': ApiCategoryCategory;
       'api::check-payment.check-payment': ApiCheckPaymentCheckPayment;
       'api::forget-password.forget-password': ApiForgetPasswordForgetPassword;
       'api::location-user.location-user': ApiLocationUserLocationUser;

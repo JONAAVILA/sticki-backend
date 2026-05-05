@@ -107,11 +107,15 @@
       "target": "api::store.store",
       "mappedBy": "owner"
     },
-    "clerkId": {
+    "clerk_id": {
       "type": "string",
       "minLength": 10,
       "maxLength": 100,
       "required": true
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
