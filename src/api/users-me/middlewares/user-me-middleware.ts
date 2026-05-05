@@ -30,7 +30,7 @@ export default (config, { strapi }: { strapi: Core.Strapi }) => {
           .query('plugin::users-permissions.user')
           .findOne({
               where:{
-                clerkId:session.sub,
+                clerk_id:session.sub,
                 is_active:true
               }
           })
