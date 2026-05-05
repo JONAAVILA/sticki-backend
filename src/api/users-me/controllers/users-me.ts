@@ -209,17 +209,21 @@ export default {
         try {
             const { id } = ctx.params
 
-            // await strapi
-            //     .documents('api::location-user.location-user')
-            //     .update({
-            //         documentId:id,
-            //         data:{
-            //             is_active:false
-            //         }
-            //     })
+            await strapi
+                .documents('api::location-user.location-user')
+                .update({
+                    documentId:id,
+                    data:{
+                        is_active:false
+                    }
+                })
+
+            return ctx.send({
+                data: "La dirección se eliminó con éxito",
+            })
         } catch (error) {
             console.log(error)
-            ctx.throw(500, "Error al eliminar direcció")
+            return ctx.throw(500, "Error al eliminar dirección")
         }
     },
     //product-cateogories
