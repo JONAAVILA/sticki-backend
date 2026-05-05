@@ -126,14 +126,14 @@ export default {
     },
     async getLocations(ctx,next){
         try {
-            const { documentId } = ctx.state.user
+            const { id } = ctx.state.user
 
             const locations = await strapi
                 .documents('api::location-user.location-user')
                 .findMany({
                     filters:{
                         users_permissions_user:{
-                            id:documentId
+                            id:id
                         }
                     }
                 })
