@@ -129,10 +129,12 @@ export default {
             const { documentId } = ctx.state.user
 
             const locations = await strapi
-                .query('api::location-user.location-user')
+                .documents('api::location-user.location-user')
                 .findMany({
-                    where:{
-                        users_permissions_user:documentId
+                    filters:{
+                        users_permissions_user:{
+                            id:documentId
+                        }
                     }
                 })
 
@@ -147,10 +149,20 @@ export default {
     async locationsCreate(ctx,next){
         try {
             const { documentId } = ctx.state.user
-            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions } = ctx.request.body
+            const { data } = ctx.request.body
+            const { street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions } = data
             console.log("locationsParams",street,region,place,zipCode,country,door,floor,number,lat,long,typeAddress,instructions)
 
-            if(!street || !region || !place || !zipCode || !country || !number || !lat || !long) return ctx.throw("Datos faltantes")
+            if(
+                !street ||
+                !region || 
+                !place || 
+                !zipCode || 
+                !country || 
+                !number || 
+                !lat || 
+                !long
+            ) return ctx.throw("Datos faltantes")
 
             await strapi
                 .documents('api::location-user.location-user')
